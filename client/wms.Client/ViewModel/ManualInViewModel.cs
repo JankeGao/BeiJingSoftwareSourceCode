@@ -41,6 +41,7 @@ using wms.Client.View;
 using wms.Client.ViewModel;
 using ILabelContract = Bussiness.Contracts.ILabelContract;
 using RunningContainer = wms.Client.Model.Entity.RunningContainer;
+using wms.Client.Jobs.AlarmJob;
 
 namespace wms.Client.ViewModel
 {
@@ -50,7 +51,7 @@ namespace wms.Client.ViewModel
     [Module(ModuleType.InManage, "ManualInDlg", "手动入库")]
     public class ManualInViewModel : Base.DataProcess<InTask>
     {
-
+        private WeightUtils weightUtils;
         public ImageWindow imageWindow;
         private readonly string _basePath = ConfigurationManager.AppSettings["ServerIP"];
 
@@ -112,6 +113,7 @@ namespace wms.Client.ViewModel
 
         public ManualInViewModel()
         {
+            weightUtils = new WeightUtils();
             MaterialRepository = IocResolver.Resolve<IRepository<Material, int>>();
 
             ContainerRepository = IocResolver.Resolve<IRepository<Container, int>>();
@@ -731,15 +733,14 @@ namespace wms.Client.ViewModel
         }
 
         /// <summary>
-        /// 当前操作储位
+        /// 当前操作物料重量
         /// </summary>
-        private decimal inQuantity = 1;
         public decimal InQuantity
         {
-            get { return inQuantity; }
-            set { inQuantity = value; RaisePropertyChanged(); }
+            get { return weightUtils.WeighingQuantity; }
+            set { weightUtils.WeighingQuantity = value; RaisePropertyChanged(); }
         }
-
+        //private decimal inQuantity = 1;
 
         /// <summary>
         /// 生产日期

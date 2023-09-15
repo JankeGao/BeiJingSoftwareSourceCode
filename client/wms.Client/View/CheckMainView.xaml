@@ -167,8 +167,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="60" />
                         <RowDefinition Height="60" />
-                        <RowDefinition Height="60" />
-                        <RowDefinition Height="300" />
+                        <RowDefinition Height="380" />
                         <RowDefinition Height="120" />
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0">
@@ -225,7 +224,8 @@
                                         TextWrapping="Wrap"
                                         VerticalScrollBarVisibility="Auto"
                                         Text="{Binding SearchLocationCode,UpdateSourceTrigger=PropertyChanged}"
-                                        materialDesign:HintAssist.Hint="扫描储位码" >
+                                        materialDesign:HintAssist.Hint="扫描储位码"
+                                        Visibility="Collapsed">
                                         <TextBox.InputBindings>
                                             <KeyBinding Key="Enter" Command="{Binding ScanLocationCommand}" CommandParameter="{Binding ElementName=SearchLocationCode}"/>
                                         </TextBox.InputBindings>
@@ -239,13 +239,14 @@
                                 ToolTip="Resource name: MaterialDesignRaisedButton"
                                 IsDefault="true"
                                 Command="{Binding ScanLocationCommand}"
-                                CommandParameter="{Binding SearchLocationCode}">
+                                CommandParameter="{Binding SearchLocationCode}"
+                                Visibility="Collapsed">
                                 扫描
                             </Button>
                         </StackPanel>
                     </Grid>
    
-                    <Grid Grid.Row="2">
+                    <Grid Grid.Row="2" Visibility="Collapsed">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="BarcodeScan" Width="30" Height="30" Margin="15"
                                                      Foreground="#673AB7" />
@@ -423,7 +424,7 @@
                             </TextBlock>
                         </StackPanel>
                     </Grid>
-                    <Grid Grid.Row="3">
+                    <Grid Grid.Row="2">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="100" />
                             <RowDefinition />
@@ -540,7 +541,7 @@
 
                         <!--<template1:UcDataPager VerticalAlignment="Top" Grid.Row="2"/>-->
                     </Grid>
-                    <Grid Grid.Row="4" HorizontalAlignment="Left">
+                    <Grid Grid.Row="3" HorizontalAlignment="Left">
                         <StackPanel Orientation="Horizontal">
                             <Button
                                 Style="{StaticResource MaterialDesignRaisedDarkButton}"

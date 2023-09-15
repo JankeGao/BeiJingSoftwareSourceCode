@@ -352,6 +352,7 @@
     <Compile Include="Core\share\HttpContact\Request\GroupRequest.cs" />
     <Compile Include="Core\share\HttpContact\Request\UserRequest.cs" />
     <Compile Include="Core\share\HttpContact\Response\ApiResponse.cs" />
+    <Compile Include="Jobs\AlarmJob\WeightUtils.cs" />
     <Compile Include="Jobs\BaseJob.cs" />
     <Compile Include="Jobs\AlarmJob\AlarmJob.cs" />
     <Compile Include="Jobs\DemoJob\DemoJob.cs" />

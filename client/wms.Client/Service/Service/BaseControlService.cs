@@ -35,6 +35,17 @@ namespace wms.Client.Service.Service
         }
 
         /// <summary>
+        /// 设备物料重量
+        /// </summary>
+        /// <returns></returns>
+        public async Task<DataResult> GetWeight()
+        {
+            BaseServiceRequest<DataResult> baseService = new BaseServiceRequest<DataResult>();
+            var r = await baseService.GetRequest<DataResult>(new GetWeightRequest(), RestSharp.Method.GET);
+            return r;
+        }
+
+        /// <summary>
         /// 料斗行程设定
         /// </summary>
         /// <returns></returns>

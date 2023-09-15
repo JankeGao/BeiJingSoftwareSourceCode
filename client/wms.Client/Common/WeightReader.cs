@@ -218,7 +218,6 @@ namespace wms.Client.Common
             {
                 return DataProcess.Failure("串口未打开");
             }
-            return DataProcess.Failure("串口未打开");
         }
     }
 }

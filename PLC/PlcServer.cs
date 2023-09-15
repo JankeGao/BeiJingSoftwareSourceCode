@@ -748,6 +748,33 @@ namespace PLCServer
                 return DataProcess.Failure(ex.Message);
             }
         }
+        /// <summary>
+        /// 获取物料重量
+        /// </summary>
+        /// <returns></returns>
+        public DataResult GetWeight()
+        {
+            try
+            {
+                if (isConnected)
+                {
+                    var ReturnQuantityResult = melsec_net.ReadInt16("D250");
+                    if (!ReturnQuantityResult.IsSuccess)
+                    {
+                        return DataProcess.Failure("获取物料重量未成功");
+                    }
+                    return DataProcess.Success(ReturnQuantityResult.Content);
+                }
+                // 如果未连接，则返回失败状态的DataResult对象
+                return DataProcess.Failure("PLC未连接");
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
 
         /// <summary>
         /// 获取报警信息
@@ -1174,7 +1201,7 @@ namespace PLCServer
                     }
                     else
                     {
-                        return DataProcess.Failure("PCL无报警");
+                        return DataProcess.Failure("PLC无报警");
                     }
                 }
                 else

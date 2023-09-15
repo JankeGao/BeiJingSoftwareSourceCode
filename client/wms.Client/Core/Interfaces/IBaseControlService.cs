@@ -22,10 +22,16 @@ namespace wms.Client.Core.Interfaces
        Task<DataResult> GetAlarmInformation();
 
         /// <summary>
+        /// 读取物料重量
+        /// </summary>
+        /// <returns></returns>
+        Task<DataResult> GetWeight();
+
+        /// <summary>
         /// 复位全部报警
         /// </summary>
         /// <returns></returns>
-       Task<DataResult> PostRestAllAlarm();
+        Task<DataResult> PostRestAllAlarm();
         /// <summary>
         /// 点击扫描按钮
         /// </summary>

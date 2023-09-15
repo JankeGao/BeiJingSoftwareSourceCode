@@ -72,6 +72,15 @@ namespace PLCServer
         [OperationContract]
         [WebInvoke(Method = "GET", UriTemplate = "GetAlarmInformation", BodyStyle = WebMessageBodyStyle.Bare, RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         DataResult GetAlarmInformation();
+
+        /// <summary>
+        /// 获取物料重量
+        /// </summary>
+        /// <returns></returns>
+        [OperationContract]
+        [WebInvoke(Method = "GET", UriTemplate = "GetWeight", BodyStyle = WebMessageBodyStyle.Bare, RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        DataResult GetWeight();
+
         /// <summary>
         /// 复位报警
         /// </summary>

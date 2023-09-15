@@ -19,6 +19,14 @@ namespace wms.Client.Model.RequestModel
     }
 
     /// <summary>
+    /// 获取物料重量
+    /// </summary>
+    public class GetWeightRequest : BaseRequest
+    {
+        public override string route { get => DeviceIP + "GetWeight"; }
+    }
+
+    /// <summary>
     /// 设备报警信息
     /// </summary>
     public class ResetAlarmRequest : BaseRequest

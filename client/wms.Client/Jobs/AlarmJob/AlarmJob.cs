@@ -26,6 +26,7 @@ namespace wms.Client.Jobs.AlarmJob
      *+++++++++++++++++++++++++++*/
     internal class AlarmJob : BaseJob
     {
+        private WeightUtils weightUtils;
         // 调用本地数据库
         public static string connStr = System.Configuration.ConfigurationSettings.AppSettings["connectionString"].ToString();
         //public static string connStr = ConfigurationManager.ConnectionStrings["Default"].ToString();
@@ -43,6 +44,7 @@ namespace wms.Client.Jobs.AlarmJob
 
         public AlarmJob()
         {
+            weightUtils = new WeightUtils();
             m_jobName = this.GetType().Name;
             ReadConfigInfo();
         }
@@ -50,6 +52,7 @@ namespace wms.Client.Jobs.AlarmJob
         public override async Task Do(params object[] param)
         {
             Thread.Sleep(100);
+            GetWeightes();
             TaskBegin();
         }
 
@@ -74,7 +77,39 @@ namespace wms.Client.Jobs.AlarmJob
            // ContainerEntity = WareHouseContract.Containers.FirstOrDefault(a => a.Code == ContainerCode);
         }
 
+        /// <summary>
+        /// 物料称重数量
+        /// </summary>
+        //public static decimal WeighingQuantity { get; set; }
 
+        /// <summary>
+        /// 获取物料重量
+        /// </summary>
+        private async void GetWeightes()
+        {
+            try
+            {
+                // 读取PLC 状态信息
+                var baseControlService = ServiceProvider.Instance.Get<IBaseControlService>();
+
+                // 返回当前称重物料重量
+                var weightResult = await baseControlService.GetWeight();
+                if (weightResult.Success)
+                {
+                    decimal weighingQuantity = decimal.Parse(weightResult.Data.ToString());
+                    weightUtils.WeighingQuantity = weighingQuantity;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Msg.Error(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 获取报警信息
+        /// </summary>
         private async void TaskBegin()
         {
             try
