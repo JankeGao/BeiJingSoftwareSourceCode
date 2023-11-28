@@ -1027,7 +1027,7 @@ export default {
         FIFOType: 0,
         FileID: '',
         IsNeedBlock: undefined,
-        IsMaxBatch: undefined,
+        IsMaxBatch: true,
         ValidityPeriod: undefined,
         AgeingPeriod: undefined,
         CostCenter: undefined
@@ -1637,7 +1637,7 @@ export default {
       var url = window.PLATFROM_CONFIG.baseUrl + '/api/Material/DoDownLoadTemp'
       window.open(url)
     },
-    // 上传文件个数超过定义的数量
+    // 上传文件个数超过定义的重量(g)
     handleExceed(files, fileList) {
       this.$message.warning(this.$t('messageTips.ImportJudge'))
     },
@@ -1927,6 +1927,7 @@ export default {
         PackageQuantity: 0,
         IsQuality: false,
         IsPackage: false,
+        IsMaxBatch:true,
         IsBatch: false,
         IsDeleted: false,
         MinOutQuantity: 0,

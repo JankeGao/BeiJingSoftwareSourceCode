@@ -110,12 +110,12 @@
                 <span>{{ scope.row.MaterialName }}</span>
               </template>
             </el-table-column>
-            <el-table-column :label="'价格'" width="80" align="center" show-overflow-tooltip>
+            <el-table-column :label="'备注2'" width="80" align="center" show-overflow-tooltip>
               <template slot-scope="scope">
                 <span>{{ scope.row.Price }}</span>
               </template>
             </el-table-column>
-            <el-table-column :label="'用途'" width="80" align="center" show-overflow-tooltip>
+            <el-table-column :label="'备注3'" width="80" align="center" show-overflow-tooltip>
               <template slot-scope="scope">
                 <span>{{ scope.row.Use }}</span>
               </template>
@@ -125,17 +125,17 @@
                 <span>{{ scope.row.LocationCode }}</span>
               </template>
             </el-table-column>
-            <el-table-column :label="'总数量'" width="80" align="center" show-overflow-tooltip>
+            <el-table-column :label="'总重量(g)'" width="80" align="center" show-overflow-tooltip>
               <template slot-scope="scope">
                 <span style="color:green">{{ scope.row.Quantity }}</span>
               </template>
             </el-table-column>
-            <el-table-column :label="'锁定数量'" width="90" align="center" show-overflow-tooltip>
+            <el-table-column :label="'锁定重量(g)'" width="90" align="center" show-overflow-tooltip>
               <template slot-scope="scope">
                 <span style="color:red">{{ scope.row.LockedQuantity }}</span>
               </template>
             </el-table-column>
-            <el-table-column :label="'可用数量'" width="90" align="center" show-overflow-tooltip>
+            <el-table-column :label="'可用重量(g)'" width="90" align="center" show-overflow-tooltip>
               <template slot-scope="scope">
                 <span style="color:green">{{ scope.row.Quantity-scope.row.LockedQuantity }}</span>
               </template>

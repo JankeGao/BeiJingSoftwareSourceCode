@@ -396,7 +396,7 @@
                                     TextWrapping="Wrap"
                                     VerticalScrollBarVisibility="Auto"
                                     Text="{Binding CheckQuantity,Mode=TwoWay}"
-                                    materialDesign:HintAssist.Hint="输入盘点数量" >
+                                    materialDesign:HintAssist.Hint="输入盘点重量(kg)" >
                                     <TextBox.InputBindings>
                                             <KeyBinding Key="Enter" Command="{Binding ScanBarcodeCommand}" CommandParameter="{Binding ElementName=SearchBarcode}"/>
                                         </TextBox.InputBindings>
@@ -534,7 +534,7 @@
                                     <DataGridTextColumn Binding="{Binding LocationCode}" Header="所在储位" />
                                     <DataGridTextColumn Binding="{Binding MaterialName}" Header="物料名称" />
                                     <DataGridTextColumn Binding="{Binding MaterialCode}" Header="物料编码" />
-                                    <DataGridTextColumn Binding="{Binding Quantity}" Header="盘点数量" />
+                                    <DataGridTextColumn Binding="{Binding Quantity}" Header="盘点重量(g)" />
                                 </DataGrid.Columns>
                             </DataGrid>
                         </WrapPanel>

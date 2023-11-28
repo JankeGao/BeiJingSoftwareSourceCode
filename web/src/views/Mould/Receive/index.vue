@@ -155,7 +155,7 @@
             <span>{{ scope.row.Remarks }}</span>
           </template>
         </el-table-column>
-        <el-table-column :label="'领用数量'" width="100" align="center" show-overflow-tooltip>
+        <el-table-column :label="'领用重量(g)'" width="100" align="center" show-overflow-tooltip>
           <template slot-scope="scope">
             <span>{{ scope.row.Quantity }}</span>
           </template>
@@ -323,7 +323,7 @@
             <span>{{ scope.row.ReceiveTypeDescription }}</span>
           </template>
         </el-table-column>
-        <el-table-column :label="'数量'" width="145" align="center">
+        <el-table-column :label="'重量(g)'" width="145" align="center">
           <template slot-scope="scope">
             <span>{{ scope.row.Quantity }}</span>
           </template>
@@ -524,7 +524,7 @@ export default {
       // 领用订单实体
       Receive: {
         Code: '', // 编码
-        Quantity: '', // 数量
+        Quantity: '', // 重量(g)
         Status: '', // 领用状态
         PredictReturnTime: '',
         ReceiveType: '', // 领用类型
@@ -549,7 +549,7 @@ export default {
         LastTimeReturnDatetime: '',
         PredictReturnTime: '',
         LocationCode: '',
-        Quantity: '' // 数量
+        Quantity: '' // 重量(g)
       },
       PrintCode: '',
       controls: [],
@@ -1312,7 +1312,7 @@ export default {
       const isTextComputer = file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
       return (isText | isTextComputer)
     },
-    // 上传文件个数超过定义的数量
+    // 上传文件个数超过定义的重量(g)
     handleExceed(files, fileList) {
       this.$message.warning(`当前限制选择 1 个文件，请删除后继续上传`)
     },
@@ -1418,7 +1418,7 @@ export default {
     resstReceive() {
       this.Receive = {
         Code: '', // 编码
-        Quantity: '', // 数量
+        Quantity: '', // 重量(g)
         Status: '', // 领用状态
         PredictReturnTime: '',
         ReceiveType: '', // 领用类型

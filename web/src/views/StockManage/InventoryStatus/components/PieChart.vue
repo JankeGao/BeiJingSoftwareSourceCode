@@ -68,10 +68,10 @@ export default {
       }
       for (var i = 0; i < num; i++) {
         titleData = '库存：' + salesData[i].MaterialName + '状态详情' + '                                       ' + '单位：' + salesData[i].MaterialUnit
-        nameData.push('已上架数量')
-        nameData.push('未上架数量')
-        data.push({ 'value': salesData[i].NotShelfQuantity, 'name': '未上架数量' })
-        data.push({ 'value': salesData[i].Quantity, 'name': '已上架数量' })
+        nameData.push('已上架重量(g)')
+        nameData.push('未上架重量(g)')
+        data.push({ 'value': salesData[i].NotShelfQuantity, 'name': '未上架重量(g)' })
+        data.push({ 'value': salesData[i].Quantity, 'name': '已上架重量(g)' })
       }
       this.chart = echarts.init(this.$el, 'macarons')
 

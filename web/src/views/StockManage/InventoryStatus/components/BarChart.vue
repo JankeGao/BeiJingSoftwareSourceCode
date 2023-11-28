@@ -98,7 +98,7 @@ export default {
         },
         xAxis: [{
           type: 'category',
-          data: ['已上架数量', '未上架数量'],
+          data: ['已上架重量(g)', '未上架重量(g)'],
           axisTick: {
             alignWithLabel: true
           }

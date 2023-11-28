@@ -87,7 +87,7 @@
               <span>{{ scope.row.BatchCode }}</span>
             </template>
           </el-table-column>
-          <el-table-column :label="'总数量'" width="90" align="center">
+          <el-table-column :label="'总重量(g)'" width="90" align="center">
             <template slot-scope="scope">
               <span style="color:green">{{ scope.row.Quantity }}</span>
             </template>
@@ -107,7 +107,7 @@
               <span>{{ scope.row.CreatedTime }}</span>
             </template>
           </el-table-column>
-          <!-- <el-table-column :label="'锁定数量'" width="90" align="center">
+          <!-- <el-table-column :label="'锁定重量(g)'" width="90" align="center">
             <template slot-scope="scope">
               <span style="color:red">{{ scope.row.LockedQuantity }}</span>
             </template>
@@ -264,7 +264,7 @@ export default {
       const isTextComputer = file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
       return (isText | isTextComputer)
     },
-    // 上传文件个数超过定义的数量
+    // 上传文件个数超过定义的重量(g)
     handleExceed(files, fileList) {
       this.$message.warning(`当前限制选择 1 个文件，请删除后继续上传`)
     },

@@ -184,12 +184,12 @@
                   <span>{{ scope.row.MaterialName }}</span>
                 </template>
               </el-table-column>
-              <el-table-column :label="'总数量'" width="80" align="center">
+              <el-table-column :label="'总重量(g)'" width="80" align="center">
                 <template slot-scope="scope">
                   <span style="color:green">{{ scope.row.Quantity }}</span>
                 </template>
               </el-table-column>
-              <el-table-column :label="'锁定数量'" width="80" align="center">
+              <el-table-column :label="'锁定重量(g)'" width="80" align="center">
                 <template slot-scope="scope">
                   <span style="color:red">{{ scope.row.LockedQuantity }}</span>
                 </template>
@@ -315,13 +315,13 @@
                             </div>
                           </div>
                           <div style="padding:1px">
-                            <span>当前存放数量:</span>
+                            <span>当前存放重量(g):</span>
                             <span>{{ item.Quantity }}</span>
                           </div>
                       </div>
                       </el-card>
                         <div style="padding:10px">
-                          <span>最多存放数量:</span>
+                          <span>最多存放重量(g):</span>
                           <span>{{ item.BoxMaxCount }}</span>
                         </div>
                     </el-card>

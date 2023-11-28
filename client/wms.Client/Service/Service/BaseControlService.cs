@@ -33,7 +33,37 @@ namespace wms.Client.Service.Service
             var r = await baseService.GetRequest<DataResult>(new GetAlarmInformationRequest(), RestSharp.Method.GET);
             return r;
         }
+        /// <summary>
+        /// 获取M4131按钮状态
+        /// </summary>
+        /// <returns></returns>
+        public async Task<DataResult> GetM4131()
+        {
+            BaseServiceRequest<DataResult> baseService = new BaseServiceRequest<DataResult>();
+            var r = await baseService.GetRequest<DataResult>(new GetM4131Request(), RestSharp.Method.GET);
+            return r;
+        }
 
+        /// <summary>
+        /// 开始称重M4132置为ON
+        /// </summary>
+        /// <returns></returns>
+        public async Task<DataResult> PostM4132()
+        {
+            BaseServiceRequest<DataResult> baseService = new BaseServiceRequest<DataResult>();
+            var r = await baseService.GetRequest<DataResult>(new PostM4132Request(), RestSharp.Method.POST);
+            return r;
+        }
+        /// <summary>
+        /// 取消称重M4139置为ON
+        /// </summary>
+        /// <returns></returns>
+        public async Task<DataResult> PostM4139()
+        {
+            BaseServiceRequest<DataResult> baseService = new BaseServiceRequest<DataResult>();
+            var r = await baseService.GetRequest<DataResult>(new PostM4139Request(), RestSharp.Method.POST);
+            return r;
+        }
         /// <summary>
         /// 设备物料重量
         /// </summary>
@@ -42,6 +72,17 @@ namespace wms.Client.Service.Service
         {
             BaseServiceRequest<DataResult> baseService = new BaseServiceRequest<DataResult>();
             var r = await baseService.GetRequest<DataResult>(new GetWeightRequest(), RestSharp.Method.GET);
+            return r;
+        }
+
+        /// <summary>
+        /// 设备实测物料重量
+        /// </summary>
+        /// <returns></returns>
+        public async Task<DataResult> GetWeightMeasured()
+        {
+            BaseServiceRequest<DataResult> baseService = new BaseServiceRequest<DataResult>();
+            var r = await baseService.GetRequest<DataResult>(new GetWeightMeasuredRequest(), RestSharp.Method.GET);
             return r;
         }
 
@@ -683,7 +724,7 @@ namespace wms.Client.Service.Service
             return r;
         }
         /// <summary>
-        /// 开始后侧空间
+        /// 开始前侧空间
         /// </summary>
         /// <returns></returns>
         public async Task<DataResult> StartM810()

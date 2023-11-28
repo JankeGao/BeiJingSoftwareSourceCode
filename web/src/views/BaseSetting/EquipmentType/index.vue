@@ -552,7 +552,7 @@ export default {
         }
       })
     },
-    // 上传文件个数超过定义的数量
+    // 上传文件个数超过定义的重量(g)
     handleExceed(files, fileList) {
       this.$message.warning(this.$t('messageTips.ImportJudge'),)
     },

@@ -1120,7 +1120,7 @@ export default {
   presentationOfWarehousingDocuments: {
     pleaseScanTheBarCode: 'PleaseScanTheBarCode',
     pleaseEnterTheCorrectNumber: 'PleaseEnterTheCorrectNumber',
-    numberOfBarCodesInAPacket: 'Enter the correct number of bar codes in a single packet | 请输入正确的单包条码数量',
+    numberOfBarCodesInAPacket: 'Enter the correct number of bar codes in a single packet | 请输入正确的单包条码重量(g)',
     editTheEntryList: 'EditTheEntryList',
     createAnEntryList: 'CreateAnEntryList',
     pleaseEnterTheWarehouseEntryNumber: 'PleaseEnterTheWarehouseEntryNumber',

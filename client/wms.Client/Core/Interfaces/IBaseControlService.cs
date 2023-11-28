@@ -22,10 +22,31 @@ namespace wms.Client.Core.Interfaces
        Task<DataResult> GetAlarmInformation();
 
         /// <summary>
+        /// 读取M4131按钮状态
+        /// </summary>
+        /// <returns></returns>
+        Task<DataResult> GetM4131();
+        /// <summary>
+        /// 开始称重M4132置为ON
+        /// </summary>
+        /// <returns></returns>
+        Task<DataResult> PostM4132();
+        /// <summary>
+        /// 取消称重M4139置为ON
+        /// </summary>
+        /// <returns></returns>
+        Task<DataResult> PostM4139();
+        /// <summary>
         /// 读取物料重量
         /// </summary>
         /// <returns></returns>
         Task<DataResult> GetWeight();
+
+        /// <summary>
+        /// 读取实测物料重量
+        /// </summary>
+        /// <returns></returns>
+        Task<DataResult> GetWeightMeasured();
 
         /// <summary>
         /// 复位全部报警

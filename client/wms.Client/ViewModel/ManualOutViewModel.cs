@@ -6,6 +6,7 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
@@ -109,6 +110,7 @@ namespace wms.Client.ViewModel
             StraightOutTrayCommand = new RelayCommand(StraightOutTray);
             StraightInTrayCommand = new RelayCommand(StraightInTray);
             HandShelfCommand = new RelayCommand (HandShelf);
+            PostM4132StartCommand = new RelayCommand(PostM4132Start);
             PrintItemCommand = new RelayCommand<OutTaskMaterialLabelDto>(PrintItem);
             RunningCommand = new RelayCommand(RunningContainer);
             RunningTakeInCommand = new RelayCommand(RunningTakeInContainer); 
@@ -238,7 +240,7 @@ namespace wms.Client.ViewModel
         }
 
         /// <summary>
-        /// 储位分组
+        /// 有物料储位分组
         /// </summary>
         private ObservableCollection<LocationVIEW> _LocationGroups = new ObservableCollection<LocationVIEW>();
         public ObservableCollection<LocationVIEW> LocationGroups
@@ -246,7 +248,6 @@ namespace wms.Client.ViewModel
             get { return _LocationGroups; }
             set { _LocationGroups = value; RaisePropertyChanged(); }
         }
-
 
         // 供应商分组
         private ObservableCollection<Stock> _BatchCodeGroups = new ObservableCollection<Stock>();
@@ -460,6 +461,12 @@ namespace wms.Client.ViewModel
         /// 打开新页面，string: 模块名称
         /// </summary>
         public RelayCommand RunningCommand { get; private set; }
+
+        /// <summary>
+        /// 开始称重M4132置为ON
+        /// </summary>
+        public RelayCommand PostM4132StartCommand { get; private set; }
+
         public RelayCommand RunningTakeInCommand { get; private set; }
         
 
@@ -530,15 +537,24 @@ namespace wms.Client.ViewModel
         }
 
         /// <summary>
-        /// 当前操作储位
+        /// 当前取出物料重量
         /// </summary>
-        private decimal outQuantity = 1;
+        private decimal outQuantity = 0;
         public decimal OutQuantity
         {
             get { return outQuantity; }
-            set { outQuantity = value; RaisePropertyChanged(); }
+            set { outQuantity = Math.Round(value, 1); RaisePropertyChanged(); }
         }
 
+        /// <summary>
+        /// 当前实测物料重量
+        /// </summary>
+        public decimal WeighingQuantityMeasured
+        {
+            get { return weighingQuantityMeasured; }
+            set { weighingQuantityMeasured = Math.Round(value, 2); RaisePropertyChanged(); }
+        }
+        private decimal weighingQuantityMeasured = 0;
 
         /// <summary>
         /// 生产日期
@@ -755,6 +771,12 @@ namespace wms.Client.ViewModel
             get { return _SecondStepColor; }
             set { _SecondStepColor = value; RaisePropertyChanged(); }
         }
+        private string _M4132StepColor = "MediumPurple";
+        public string M4132StepColor
+        {
+            get { return _M4132StepColor; }
+            set { _M4132StepColor = value; RaisePropertyChanged(); }
+        }
         private string _ThirdStepColor = "MediumPurple";
         public string ThirdStepColor
         {
@@ -810,6 +832,7 @@ namespace wms.Client.ViewModel
                         this.WeightCheckColor = "MediumPurple";
                         this.StraightInTrayColor = "MediumPurple";
                         this.StraightOutTrayColor = "MediumPurple";
+                        this.M4132StepColor = "MediumPurple";
                         break;
                     case "FirstStep":
                         this.ScanColor = "MediumPurple";
@@ -820,6 +843,7 @@ namespace wms.Client.ViewModel
                         this.WeightCheckColor = "MediumPurple";
                         this.StraightInTrayColor = "MediumPurple";
                         this.StraightOutTrayColor = "MediumPurple";
+                        this.M4132StepColor = "MediumPurple";
                         break;
                     case "SecondStep":
                         this.ScanColor = "MediumPurple";
@@ -830,6 +854,7 @@ namespace wms.Client.ViewModel
                         this.WeightCheckColor = "MediumPurple";
                         this.StraightInTrayColor = "MediumPurple";
                         this.StraightOutTrayColor = "MediumPurple";
+                        this.M4132StepColor = "MediumPurple";
                         break;
                     case "ThirdStep":
                         this.ScanColor = "MediumPurple";
@@ -840,6 +865,7 @@ namespace wms.Client.ViewModel
                         this.WeightCheckColor = "MediumPurple";
                         this.StraightInTrayColor = "MediumPurple";
                         this.StraightOutTrayColor = "MediumPurple";
+                        this.M4132StepColor = "MediumPurple";
                         break;
                     case "FourthStep":
                         this.ScanColor = "MediumPurple";
@@ -850,6 +876,7 @@ namespace wms.Client.ViewModel
                         this.WeightCheckColor = "MediumPurple";
                         this.StraightInTrayColor = "MediumPurple";
                         this.StraightOutTrayColor = "MediumPurple";
+                        this.M4132StepColor = "MediumPurple";
                         break;
                     case "WeightCheck":
                         this.ScanColor = "MediumPurple";
@@ -860,6 +887,7 @@ namespace wms.Client.ViewModel
                         this.WeightCheckColor = "Green";
                         this.StraightInTrayColor = "MediumPurple";
                         this.StraightOutTrayColor = "MediumPurple";
+                        this.M4132StepColor = "MediumPurple";
                         break;
                     case "StraightInTrayCheck":
                         this.ScanColor = "MediumPurple";
@@ -870,6 +898,7 @@ namespace wms.Client.ViewModel
                         this.WeightCheckColor = "MediumPurple";
                         this.StraightInTrayColor = "Green";
                         this.StraightOutTrayColor = "MediumPurple";
+                        this.M4132StepColor = "MediumPurple";
                         break;
                     case "StraightOutTrayCheck":
                         this.ScanColor = "MediumPurple";
@@ -880,6 +909,18 @@ namespace wms.Client.ViewModel
                         this.WeightCheckColor = "MediumPurple";
                         this.StraightInTrayColor = "MediumPurple";
                         this.StraightOutTrayColor = "Green";
+                        this.M4132StepColor = "MediumPurple";
+                        break;
+                    case "M4132StepColor":
+                        this.ScanColor = "MediumPurple";
+                        this.FirstStepColor = "MediumPurple";
+                        this.SecondStepColor = "MediumPurple";
+                        this.ThirdStepColor = "MediumPurple";
+                        this.FourthStepColor = "MediumPurple";
+                        this.WeightCheckColor = "MediumPurple";
+                        this.StraightInTrayColor = "MediumPurple";
+                        this.StraightOutTrayColor = "MediumPurple";
+                        this.M4132StepColor = "Green";
                         break;
                     default:
                         this.ScanColor = "MediumPurple";
@@ -1151,6 +1192,16 @@ namespace wms.Client.ViewModel
                     }
 
                     SelectMaterial();
+
+                    //RunningContainer();
+
+                    // 并行执行两个异步方法
+
+                    Task task1 = StartGetM4131Result();
+                    Task task2 = StartGetWeighingQuantity();
+                    await Task.WhenAll(task1, task2);
+
+                    // 继续执行后续代码
                 }
                 else // 如果是物料条码
                 {
@@ -1184,7 +1235,17 @@ namespace wms.Client.ViewModel
                     LabelEntity.MaterialUrl = _basePath + labelEnity.MaterialUrl;
                     // 本次出库数量
                     OutQuantity = labelEnity.Quantity;
+
                     SelectMaterial();
+
+                    //RunningContainer();
+
+                    // 并行执行两个异步方法
+                    Task task1 = StartGetM4131Result();
+                    Task task2 = StartGetWeighingQuantity();
+                    await Task.WhenAll(task1, task2);
+
+                    // 继续执行后续代码
                 }
             }
             catch (Exception ex)
@@ -1193,7 +1254,60 @@ namespace wms.Client.ViewModel
             }
         }
 
+        /// <summary>
+        /// 开始称重M4132置为ON
+        /// </summary>
+        public async void PostM4132Start()
+        {
+            try
+            {
+                ChangeColor("M4132StepColor");
+                if (GlobalData.DeviceStatus == (int)DeviceStatusEnum.Fault)
+                {
+                    GlobalData.IsFocus = true;
+                    Msg.Warning("设备离线状态，无法启动货柜！");
+                    return;
+                }
 
+                // await dialog.c
+                // 读取PLC 状态信息
+                var baseControlService = ServiceProvider.Instance.Get<IBaseControlService>();
+                var runningContainer = baseControlService.PostM4132().Result;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 取消称重M4139置为ON
+        /// </summary>
+        public async void PostM4139Start()
+        {
+            try
+            {
+                if (GlobalData.DeviceStatus == (int)DeviceStatusEnum.Fault)
+                {
+                    GlobalData.IsFocus = true;
+                    Msg.Warning("设备离线状态，无法启动货柜！");
+                    return;
+                }
+
+                // await dialog.c
+                // 读取PLC 状态信息
+                var baseControlService = ServiceProvider.Instance.Get<IBaseControlService>();
+                var runningContainer = baseControlService.PostM4139().Result;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
 
         /// <summary>
         /// 获取本货柜下全部物料
@@ -1389,8 +1503,8 @@ namespace wms.Client.ViewModel
                 var location = WareHouseContract.LocationVMs.FirstOrDefault(a => a.Code == SelectLocationCode);
                 BoxUrl = _basePath + location.BoxUrl;
                 BoxName = location.BoxName;
-                AviQuantity = stockList.Sum(a=>a.Quantity-a.LockedQuantity);
-                AllQuantity = AviStockList.Sum(a => a.Quantity - a.LockedQuantity);
+                AviQuantity = stockList.Sum(a=>a.Quantity-a.LockedQuantity) / 1000;
+                AllQuantity = AviStockList.Sum(a => a.Quantity - a.LockedQuantity) / 1000;
                 XLight = location.XLight;
                 YLight = location.YLight;
                 XLightLenght = location.XLenght.GetValueOrDefault(0);
@@ -1547,6 +1661,110 @@ namespace wms.Client.ViewModel
             }
         }
 
+        private bool M4131Start = false;
+
+        /// <summary>
+        /// 每隔100毫秒触发一次M4131状态获取
+        /// </summary>
+        /// <returns></returns>
+        public async Task StartGetM4131Result()
+        {
+            while (M4131Start == false)
+            {
+                GetM4131Result();
+                await Task.Delay(100);
+            }
+        }
+
+        public async void GetM4131Result()
+        {
+            try
+            {
+                // 读取PLC 状态信息
+                var baseControlService = ServiceProvider.Instance.Get<IBaseControlService>();
+
+                // 返回当前称M4131按钮状态
+                var M4131Result = await baseControlService.GetM4131();
+
+                if (M4131Result.Data != null && bool.Parse(M4131Result.Data.ToString()) == true)
+                {
+                    
+                    //Thread.Sleep(200);
+                    HandShelf();
+                    //Thread.Sleep(200);
+                    Submit();
+                    M4131Start = true;
+                }
+                else
+                {
+                    return;
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                Msg.Error(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 每隔200毫秒触发一次物料称重刷新
+        /// </summary>
+        /// <returns></returns>
+        public async Task StartGetWeighingQuantity()
+        {
+            while (true)
+            {
+                //if (String.IsNullOrEmpty(UnitWeight.ToString()))
+                //{
+                //    return;
+                //}
+                GetWeighingQuantity();
+                //if (isAlarmRaised)
+                //{
+                //    return;
+                //}
+                await Task.Delay(200);
+            }
+        }
+
+        /// <summary>
+        /// 返回当前称重物料数量
+        /// </summary>
+        public async void GetWeighingQuantity()
+        {
+
+            try
+            {
+                // 读取PLC 状态信息
+                var baseControlService = ServiceProvider.Instance.Get<IBaseControlService>();
+
+                // 返回当前称重物料重量
+                var weightResult = await baseControlService.GetWeight();
+                if (weightResult.Success)
+                {
+                    decimal weighingQuantity = decimal.Parse(weightResult.Data.ToString());
+                    OutQuantity = weighingQuantity;
+                }
+
+                // 返回当前称重实测物料重量
+                var weightResultMeasured = await baseControlService.GetWeightMeasured();
+                if (weightResultMeasured.Success)
+                {
+                    decimal weighingQuantityMeasured = decimal.Parse(weightResultMeasured.Data.ToString());
+                    WeighingQuantityMeasured = weighingQuantityMeasured;
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+
+                Msg.Error(ex.Message);
+            }
+        }
+
         /// <summary>
         /// 启动货柜
         /// </summary>
@@ -1569,6 +1787,8 @@ namespace wms.Client.ViewModel
 
                     return;
                 }
+
+
                 if (SelectTrayCode != CurTratCode)
                 {
                     GlobalData.IsFocus = true;
@@ -1578,6 +1798,8 @@ namespace wms.Client.ViewModel
                         return;
                     }
                 }
+
+
                 //else
                 //{
                 //    if (XLight != 0)
@@ -1597,9 +1819,7 @@ namespace wms.Client.ViewModel
                 // 判断是否启用单包条码管理
                 if (OutQuantity > AviQuantity)
                 {
-                    GlobalData.IsFocus = true;
-                    Msg.Warning("超出该容器可存放的最多数量！");
-                    return;
+                    OutQuantity = AviQuantity;
                 }
 
                 // await dialog.c
@@ -1626,10 +1846,10 @@ namespace wms.Client.ViewModel
                 if (runningContainer.Result.Success)
                 {
                     GlobalData.IsFocus = true;
-                    if (CurTratCode != SelectTrayCode)
-                    {
-                        Msg.Info("正在取出托盘,请确认托盘到达指定位置后再关闭窗口");
-                    }
+                    //if (CurTratCode != SelectTrayCode)
+                    //{
+                    //    Msg.Info("正在取出托盘,请确认托盘到达指定位置后再关闭窗口");
+                    //}
                     CurTratCode = SelectTrayCode;
                     orgXLight = XLight;
                 }
@@ -1638,6 +1858,14 @@ namespace wms.Client.ViewModel
                     GlobalData.IsFocus = true;
                     Msg.Error(runningContainer.Result.Message);
                 }
+
+                // 并行执行两个异步方法
+
+                Task task1 = StartGetM4131Result();
+                Task task2 = StartGetWeighingQuantity();
+                await Task.WhenAll(task1, task2);
+
+                // 继续执行后续代码
             }
             catch (Exception ex)
             {
@@ -1810,29 +2038,65 @@ namespace wms.Client.ViewModel
         {
             try
             {
+                //// await dialog.c
+                //// 读取PLC 状态信息
+                //var baseControlService = ServiceProvider.Instance.Get<IBaseControlService>();
+                //var runingEntity = new RunningContainer()
+                //{
+                //    ContainerCode = ContainerCode,
+                //    TrayCode = Convert.ToInt32(SelectTrayCode),
+                //    XLight = XLight,
+                //    XLenght = XLightLenght
+
+                //};
+                //var container = ContainerRepository.Query().FirstOrDefault(a => a.Code == ContainerCode);
+                //if (container != null)
+                //{
+                //    runingEntity.ContainerType = container.ContainerType;
+                //    runingEntity.IpAddress = container.Ip;
+                //    runingEntity.Port = int.Parse(container.Port);
+                //}
+                //// 货柜运行
+                //var runningContainer = baseControlService.PostStartRunningContainer(runingEntity);
+
+                //if (runningContainer.Result.Success)
+                //{
+                //    GlobalData.IsFocus = true;
+                //    //if (CurTratCode != SelectTrayCode)
+                //    //{
+                //    //    Msg.Info("正在取出托盘,请确认托盘到达指定位置后再关闭窗口");
+                //    //}
+                //    CurTratCode = SelectTrayCode;
+                //    orgXLight = XLight;
+                //}
+                //else
+                //{
+                //    GlobalData.IsFocus = true;
+                //    Msg.Error(runningContainer.Result.Message);
+                //}
+
                 ChangeColor("SecondStep");
                 if (OutQuantity == 0)
                 {
-                    Msg.Warning("请输入出库数量");
+                    Msg.Warning("请输入出库重量");
+                    M4131Start = false;
                     return;
                 }
                 // 判断是否启用单包条码管理
                 if (OutQuantity > AviQuantity)
                 {
-                    GlobalData.IsFocus = true;
-                    Msg.Warning("超出该容器最多可取出数量！");
-                    return;
+                    OutQuantity = AviQuantity;
                 }
-                if (CurTratCode != SelectTrayCode)
-                {
-                    Msg.Warning("当前货柜未运行至此托盘，请启动货柜！");
-                    return;
-                }
-                if (orgXLight != XLight)
-                {
-                    Msg.Warning("当前货柜未运行至此储位，请启动货柜！");
-                    return;
-                }
+                //if (CurTratCode != SelectTrayCode)
+                //{
+                //    Msg.Warning("当前货柜未运行至此托盘，请启动货柜！");
+                //    return;
+                //}
+                //if (orgXLight != XLight)
+                //{
+                //    Msg.Warning("当前货柜未运行至此储位，请启动货柜！");
+                //    return;
+                //}
                 if (OutTaskMaterial.Any(a => a.LocationCode == SelectLocationCode))
                 {
                     Msg.Warning("该储位在手动出库明细中，请重新选择存放储位或删除该明细重新出库！");
@@ -1883,10 +2147,10 @@ namespace wms.Client.ViewModel
                 OutTaskMaterialLabelEntity.LocationCode = SelectLocationCode;
                 OutTaskMaterialLabelEntity.TrayCode = SelectTrayCode;
                 OutTaskMaterialLabelEntity.MaterialName = materialEntity.Name;
-                OutTaskMaterialLabelEntity.Quantity = OutQuantity;
-                OutTaskMaterialLabelEntity.RealPickedQuantity= OutQuantity;
+                OutTaskMaterialLabelEntity.Quantity = (int)Math.Floor(OutQuantity * 1000);
+                OutTaskMaterialLabelEntity.RealPickedQuantity= (int)Math.Floor(OutQuantity * 1000);
                 OutTaskMaterialLabelEntity.BatchCode = SelectBatchCode;
-                OutTaskMaterialLabelEntity.OutTaskMaterialQuantity = OutQuantity;
+                OutTaskMaterialLabelEntity.OutTaskMaterialQuantity = (int)Math.Floor(OutQuantity * 1000);
                 OutTaskMaterialLabelEntity.ContainerCode = ContainerCode;
                 OutTaskMaterialLabelEntity.SupplierCode = SelectSupplerCode;
                 OutTaskMaterialLabelEntity.OutDict = InType;
@@ -1902,6 +2166,9 @@ namespace wms.Client.ViewModel
                //  OffXLight();
 
                 Clear();
+
+                PostM4139Start();
+
             }
             catch (Exception ex)
             {

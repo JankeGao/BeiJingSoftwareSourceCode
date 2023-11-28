@@ -249,17 +249,17 @@
             <span>{{ scope.row.BatchCode }}</span>
           </template>
         </el-table-column>
-        <el-table-column :label="'数量'" width="100" align="center" show-overflow-tooltip>
+        <el-table-column :label="'重量(g)'" width="100" align="center" show-overflow-tooltip>
           <template slot-scope="scope">
             <span>{{ scope.row.Quantity }}</span>
           </template>
         </el-table-column>
-        <el-table-column :label="'已下发数量'" width="100" align="center" show-overflow-tooltip>
+        <el-table-column :label="'已下发重量(g)'" width="100" align="center" show-overflow-tooltip>
           <template slot-scope="scope">
             <span>{{ scope.row.SendInQuantity }}</span>
           </template>
         </el-table-column>
-        <el-table-column :label="'已入库数量'" width="100" align="center" show-overflow-tooltip>
+        <el-table-column :label="'已入库重量(g)'" width="100" align="center" show-overflow-tooltip>
           <template slot-scope="scope">
             <span>{{ scope.row.RealInQuantity }}</span>
           </template>
@@ -448,7 +448,7 @@
               <span v-else>{{ scope.row.BatchCode }}</span>
             </template>
           </el-table-column>
-          <el-table-column :label="'数量'" width="80" align="center">
+          <el-table-column :label="'重量(g)'" width="80" align="center">
             <template slot-scope="scope">
               <el-input v-if="scope.row.Status==0" v-model="scope.row.Quantity" />
               <span v-else>{{ scope.row.Quantity }}</span>
@@ -508,7 +508,7 @@
             <el-form-item :label="'批次'">
               <el-input v-model="InMaterial.BatchCode" class="dialog-input" disabled />
             </el-form-item>
-            <el-form-item :label="'入库总数量'">
+            <el-form-item :label="'入库总重量(g)'">
               <el-input v-model="InMaterial.Quantity" class="dialog-input" disabled />
             </el-form-item>
             <el-form-item :label="'到期日期'">
@@ -527,16 +527,16 @@
                 disabled
               />
             </el-form-item>
-            <el-form-item :label="'最小单包数量'">
+            <el-form-item :label="'最小单包重量(g)'">
               <el-input v-model="InMaterial.PackageQuantity" class="dialog-input" disabled />
             </el-form-item>
-            <el-form-item :label="'条码数量'" prop="PackageQuantity">
+            <el-form-item :label="'条码重量(g)'" prop="PackageQuantity">
               <el-input
                 v-model="PackageQuantity"
                 class="dialog-input"
                 :disabled="InMaterial.MaterialType===1"
               />
-              <div v-if="InMaterial.MaterialType ===1">每个模具生成唯一码,数量为1，进行模具生命周期管理</div>
+              <div v-if="InMaterial.MaterialType ===1">每个模具生成唯一码,重量(g)为1，进行模具生命周期管理</div>
             </el-form-item>
             <el-form-item :label="'生成个数'" prop="Unit">
               <el-input v-model="LabelCount" class="dialog-input" />
@@ -591,7 +591,7 @@
                   <span>{{ scope.row.MaterialName }}</span>
                 </template>
               </el-table-column>
-              <el-table-column :label="'数量'" show-overflow-tooltip align="center">
+              <el-table-column :label="'重量(g)'" show-overflow-tooltip align="center">
                 <template slot-scope="scope">
                   <span>{{ scope.row.Quantity }}</span>
                 </template>
@@ -682,7 +682,7 @@
                 <span>名称</span>
               </el-col>
               <el-col :span="2">
-                <span>数量</span>
+                <span>重量(g)</span>
               </el-col>
               <el-col :span="4">
                 <span>批次</span>
@@ -762,7 +762,7 @@ export default {
 
     const validateLabelNum = (rule, value, callback) => {
       if (this.PackageQuantity < 0) {
-        callback(new Error('请输入正确的单包条码数量'))
+        callback(new Error('请输入正确的单包条码重量(g)'))
       } else {
         callback()
       }
@@ -840,7 +840,7 @@ export default {
       },
       // 输入规则
       labelrules: {
-        PackageQuantity: [{ required: true, message: '请输入单包数量', trigger: 'change', validator: validateLabelNum }]
+        PackageQuantity: [{ required: true, message: '请输入单包重量(g)', trigger: 'change', validator: validateLabelNum }]
       },
       labelList: [],
       Label: {
@@ -952,7 +952,7 @@ export default {
       if (!isFloat(this.PackageQuantity) || this.PackageQuantity === 0) {
         this.$message({
           title: '失败',
-          message: '请输入正确格式的数量',
+          message: '请输入正确格式的重量(g)',
           type: 'error',
           duration: 2000
         })
@@ -961,7 +961,7 @@ export default {
       if (this.LabelCount <= 0) {
         this.$message({
           title: '失败',
-          message: '请输入正确的标签生成数量',
+          message: '请输入正确的标签生成重量(g)',
           type: 'error',
           duration: 2000
         })
@@ -1296,12 +1296,12 @@ export default {
             }
           }
         })
-        // 物料条码数量
+        // 物料条码重量(g)
         this.controls.push({
           id: 111,
           type: 'atext',
           data: {
-            value: '数量：',
+            value: '重量(g)：',
             width: 400,
             height: 20,
             x: 20,
@@ -1326,7 +1326,7 @@ export default {
             }
           }
         })
-        // 物料条码数量
+        // 物料条码重量(g)
         this.controls.push({
           id: 113,
           type: 'atext',
@@ -1625,7 +1625,7 @@ export default {
       if (item.Quantity === 0 || item.Quantity === '0' || item.Quantity === '0.0' || item.Quantity === '0.00') {
         this.$message({
           title: '成功',
-          message: '请输入数量',
+          message: '请输入重量(g)',
           type: 'error',
           duration: 2000
         })
@@ -1716,7 +1716,7 @@ export default {
       const isTextComputer = file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
       return (isText | isTextComputer)
     },
-    // 上传文件个数超过定义的数量
+    // 上传文件个数超过定义的重量(g)
     handleExceed(files, fileList) {
       this.$message.warning(`当前限制选择 1 个文件，请删除后继续上传`)
     },

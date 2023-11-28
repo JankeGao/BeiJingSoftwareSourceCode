@@ -18,6 +18,7 @@ namespace wms.Client.UiCore.Template
     /// </summary>
     public partial class MainTabControl : UserControl
     {
+
         DispatcherTimer dTimer;
         public MainTabControl()
         {

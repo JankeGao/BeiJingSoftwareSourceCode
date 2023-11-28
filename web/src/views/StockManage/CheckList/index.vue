@@ -335,12 +335,12 @@
               <span>{{ scope.row.MaterialName }}</span>
             </template>
           </el-table-column>
-          <el-table-column :label="'数量'" width="80" align="center">
+          <el-table-column :label="'重量(g)'" width="80" align="center">
             <template slot-scope="scope">
               <span>{{ scope.row.Quantity }}</span>
             </template>
           </el-table-column>
-          <el-table-column :label="'盘点数量'" width="100" align="center">
+          <el-table-column :label="'盘点重量(g)'" width="100" align="center">
             <template slot-scope="{row}">
               <template v-if="row.edit">
                 <el-input
@@ -859,7 +859,7 @@ export default {
       var value = parseFloat(row.CheckedQuantity)
       if (isNaN(value) || value === 'Nan') {
         this.$message({
-          message: '盘点数量必须为数值',
+          message: '盘点重量(g)必须为数值',
           type: 'error'
         })
         row.CheckedQuantity = row.OriginalCheckedQuantity

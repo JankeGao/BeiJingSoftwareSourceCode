@@ -194,7 +194,7 @@
               <span>{{ scope.row.MaterialLabel }}</span>
             </template>
           </el-table-column>
-          <el-table-column :label="'总数量'" width="90" align="center">
+          <el-table-column :label="'总重量(g)'" width="90" align="center">
             <template slot-scope="scope">
               <span style="color:green">{{ scope.row.Quantity }}</span>
             </template>
@@ -209,7 +209,7 @@
               />
             </template>
           </el-table-column>
-          <el-table-column :label="'锁定数量'" width="90" align="center">
+          <el-table-column :label="'锁定重量(g)'" width="90" align="center">
             <template slot-scope="scope">
               <span style="color:red">{{ scope.row.LockedQuantity }}</span>
             </template>
@@ -330,8 +330,8 @@ export default {
       TableKey: 0,
       list: null,
       checkBoxData: [],
-      colOptions: ['仓库编码', '仓库名称', '货柜编码', '库位地址', '物料条码', '总数量', '拣货锁定', '锁定数量', '单位', '物料编码', '物料名称', '供应商名称', '批次', '盘点锁定', '入库时间', '老化周期'],
-      colSelect: ['仓库编码', '仓库名称', '货柜编码', '库位地址', '物料条码', '总数量', '拣货锁定', '锁定数量', '单位', '物料编码', '物料名称', '供应商名称', '批次', '盘点锁定', '入库时间', '老化周期'],
+      colOptions: ['仓库编码', '仓库名称', '货柜编码', '库位地址', '物料条码', '总重量(g)', '拣货锁定', '锁定重量(g)', '单位', '物料编码', '物料名称', '供应商名称', '批次', '盘点锁定', '入库时间', '老化周期'],
+      colSelect: ['仓库编码', '仓库名称', '货柜编码', '库位地址', '物料条码', '总重量(g)', '拣货锁定', '锁定重量(g)', '单位', '物料编码', '物料名称', '供应商名称', '批次', '盘点锁定', '入库时间', '老化周期'],
       top: 0,		// 右键菜单的位置
       left: 0,
       menuVisible: false, // 右键菜单的显示与隐藏
@@ -341,13 +341,13 @@ export default {
         { title: '货柜编码', key: 'ContainerCode', width: '80', istrue: true },
         { title: '托盘编码', key: 'TrayCode', width: '80', istrue: true },
         { title: '物料名称', key: 'MaterialName', width: '200', overflow: true, istrue: true },
-        { title: '总数量', key: 'Quantity', width: '80', istrue: true },
-        { title: '锁定数量', key: 'LockedQuantity', width: '80', istrue: true },
+        { title: '总重量(g)', key: 'Quantity', width: '80', istrue: true },
+        { title: '锁定重量(g)', key: 'LockedQuantity', width: '80', istrue: true },
         { title: '单位', key: 'MaterialUnit', width: '80', istrue: true },
         { title: '供应商名称', key: 'SupplierName', width: '120', overflow: true, istrue: true },
         { title: '批次', key: 'BatchCode', width: '120', istrue: true },
-        { title: '价格', key: 'Price', width: '80', istrue: true },
-        { title: '用途', key: 'Use', width: '120', istrue: true },
+        { title: '备注2', key: 'Price', width: '80', istrue: true },
+        { title: '备注3', key: 'Use', width: '120', istrue: true },
         { title: 'X轴编号', key: 'XLight', width: '80', istrue: true },
         { title: 'Y轴编号', key: 'YLight', width: '80', istrue: true },
         { title: '储位编码', key: 'LocationCode', width: '120', istrue: true },
@@ -480,7 +480,7 @@ export default {
       const isTextComputer = file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
       return (isText | isTextComputer)
     },
-    // 上传文件个数超过定义的数量
+    // 上传文件个数超过定义的重量(g)
     handleExceed(files, fileList) {
       this.$message.warning(`当前限制选择 1 个文件，请删除后继续上传`)
     },

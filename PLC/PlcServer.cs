@@ -749,6 +749,89 @@ namespace PLCServer
             }
         }
         /// <summary>
+        /// 获取M4131位置按钮状态
+        /// </summary>
+        /// <returns></returns>
+        public DataResult GetM4131()
+        {
+            try
+            {
+                if (isConnected)
+                {
+                    var M4131Result = melsec_net.ReadBool("M4131");
+                    if (!M4131Result.IsSuccess)
+                    {
+                        return DataProcess.Failure("获取M4131状态未成功");
+                    }
+                    return DataProcess.Success(M4131Result.Content);
+                }
+                // 如果未连接，则返回失败状态的DataResult对象
+                return DataProcess.Failure("PLC未连接");
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 开始称重M4132置为ON
+        /// </summary>
+        /// <returns></returns>
+        public DataResult PostM4132()
+        {
+            try
+            {
+                if (isConnected)
+                {
+                    var M4132Result = melsec_net.Write("M4132", true);
+                    if (!M4132Result.IsSuccess)
+                    {
+                        return DataProcess.Failure("M4132置为ON失败" + M4132Result.Message);
+                    }
+                }
+                else
+                {
+                    return DataProcess.Failure("PLC未连接");
+                }
+            }
+            catch (Exception ex)
+            {
+                return DataProcess.Failure(ex.Message);
+            }
+            return DataProcess.Success();
+        }
+
+        /// <summary>
+        /// 取消称重M4139置为ON
+        /// </summary>
+        /// <returns></returns>
+        public DataResult PostM4139()
+        {
+            try
+            {
+                if (isConnected)
+                {
+                    var M4139Result = melsec_net.Write("M4139", true);
+                    if (!M4139Result.IsSuccess)
+                    {
+                        return DataProcess.Failure("M4139置为ON失败" + M4139Result.Message);
+                    }
+                }
+                else
+                {
+                    return DataProcess.Failure("PLC未连接");
+                }
+            }
+            catch (Exception ex)
+            {
+                return DataProcess.Failure(ex.Message);
+            }
+            return DataProcess.Success();
+        }
+
+        /// <summary>
         /// 获取物料重量
         /// </summary>
         /// <returns></returns>
@@ -758,7 +841,7 @@ namespace PLCServer
             {
                 if (isConnected)
                 {
-                    var ReturnQuantityResult = melsec_net.ReadInt16("D250");
+                    var ReturnQuantityResult = melsec_net.ReadFloat("D198");
                     if (!ReturnQuantityResult.IsSuccess)
                     {
                         return DataProcess.Failure("获取物料重量未成功");
@@ -775,6 +858,32 @@ namespace PLCServer
             }
         }
 
+        /// <summary>
+        /// 获取实测物料重量
+        /// </summary>
+        /// <returns></returns>
+        public DataResult GetWeightMeasured()
+        {
+            try
+            {
+                if (isConnected)
+                {
+                    var ReturnQuantityResult = melsec_net.ReadFloat("D196");
+                    if (!ReturnQuantityResult.IsSuccess)
+                    {
+                        return DataProcess.Failure("获取物料重量未成功");
+                    }
+                    return DataProcess.Success(ReturnQuantityResult.Content);
+                }
+                // 如果未连接，则返回失败状态的DataResult对象
+                return DataProcess.Failure("PLC未连接");
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
 
         /// <summary>
         /// 获取报警信息
@@ -3090,7 +3199,7 @@ namespace PLCServer
         #region 整理存储空间
 
         /// <summary>
-        /// 开始整理
+        /// 开始整理前侧空间
         /// </summary>
         /// <returns></returns>
         public DataResult StartM800()
@@ -3126,6 +3235,42 @@ namespace PLCServer
             }
         }
 
+        /// <summary>
+        /// 开始整理后侧空间
+        /// </summary>
+        /// <returns></returns>
+        public DataResult StartM810()
+        {
+            try
+            {
+                if (isConnected)
+                {
+                    //01 PLC 接收远程控制指令——在线
+                    //00 PLC 不接受远程控制指令——离线
+                    var onLineResult = melsec_net.Write("M810", true);
+                    if (!onLineResult.IsSuccess)
+                    {
+                        return DataProcess.Failure("启动失败:" + onLineResult.Message);
+                    }
+                    System.Threading.Thread.Sleep(200);
+                    onLineResult = melsec_net.Write("M810", false);
+                    if (!onLineResult.IsSuccess)
+                    {
+                        return DataProcess.Failure("启动失败:" + onLineResult.Message);
+                    }
+                    return DataProcess.Success();
+                }
+                else
+                {
+                    return DataProcess.Failure("PLC未连接");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return DataProcess.Failure(ex.Message);
+            }
+        }
 
         /// <summary>
         /// 监视托盘

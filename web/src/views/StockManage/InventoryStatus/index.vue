@@ -56,12 +56,12 @@
             <span>{{ scope.row.MaterialName }}</span>
           </template>
         </el-table-column>
-        <el-table-column :label="'已上架数量'" width="180" show-overflow-tooltip align="center">
+        <el-table-column :label="'已上架重量(g)'" width="180" show-overflow-tooltip align="center">
           <template slot-scope="scope">
             <span>{{ scope.row.Quantity }}</span>
           </template>
         </el-table-column>
-        <el-table-column :label="'未上架数量'" width="180" show-overflow-tooltip align="center">
+        <el-table-column :label="'未上架重量(g)'" width="180" show-overflow-tooltip align="center">
           <template slot-scope="scope">
             <span>{{ scope.row.NotShelfQuantity }}</span>
           </template>

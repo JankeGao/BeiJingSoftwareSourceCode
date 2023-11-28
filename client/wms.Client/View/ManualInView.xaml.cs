@@ -30,6 +30,8 @@ namespace wms.Client.View
         public ManualInView()
         {
             InitializeComponent();
+
+            
         }
     }
 }

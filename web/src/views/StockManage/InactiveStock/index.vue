@@ -93,7 +93,7 @@
               <el-tag type="warning"><span>{{ "呆滞物料" }}</span></el-tag>
             </template>
           </el-table-column>
-          <el-table-column :label="'呆滞数量'" prop="CreatedTime" width="90" align="center" show-overflow-tooltip>
+          <el-table-column :label="'呆滞重量(g)'" prop="CreatedTime" width="90" align="center" show-overflow-tooltip>
             <template slot-scope="scope">
               <span>{{ scope.row.Quantity }}</span>
             </template>

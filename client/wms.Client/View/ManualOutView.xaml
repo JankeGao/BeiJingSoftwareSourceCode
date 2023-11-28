@@ -11,7 +11,7 @@
              xmlns:converter="clr-namespace:wms.Client.UiCore.Converter"
              xmlns:validationRules="clr-namespace:wms.Client.UiCore.ValidationRules"
              xmlns:service="clr-namespace:wms.Client.Service"
-             xmlns:controls="clr-namespace:SearchableTextBox;assembly=SearchableTextBox"
+             xmlns:controls="clr-namespace:SearchableTextBox;assembly=SearchableTextBox" xmlns:viewmodel="clr-namespace:wms.Client.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:ManualOutViewModel}"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800" Background="LightSkyBlue">
     <UserControl.Resources>
@@ -371,14 +371,14 @@
                         是否称量单品重量
                     </CheckBox>-->
                     <materialDesign:PackIcon Kind="Apps" Width="30" Height="30"  Margin="15"  Foreground="#673AB7"/>
-                    <StackPanel Margin="0" >
+                    <StackPanel Margin="10 0 0 0" >
                         <TextBox 
                             HorizontalAlignment="Left"
-                            materialDesign:HintAssist.Hint="输入备注"
+                            materialDesign:HintAssist.Hint="当前总重(kg)"
                             materialDesign:TextFieldAssist.TextBoxViewMargin="1 0 1 0"
                             materialDesign:HintAssist.FloatingScale="0.50"
                             Width="120"
-                            Text="{Binding Remark,Mode=TwoWay}"
+                            Text="{Binding WeighingQuantityMeasured,Mode=TwoWay}"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                             FontSize="18" />
                     </StackPanel>
@@ -591,7 +591,7 @@
                     </Button>
                     <CheckBox
                                     IsChecked="{Binding AutoOprate}"
-                                    materialDesign:CheckBoxAssist.CheckBoxSize="30" >
+                                    materialDesign:CheckBoxAssist.CheckBoxSize="30" Visibility="Visible">
                         自动存入
                     </CheckBox>
                     
@@ -602,10 +602,10 @@
                     <materialDesign:PackIcon Kind="Numeric1BoxMultipleOutline" Width="30" Height="30"   Margin="15 30 15 0"  Foreground="red"/>
                     <StackPanel Margin="10" >
                         <TextBox
-                            materialDesign:HintAssist.Hint="出库数量"
+                            materialDesign:HintAssist.Hint="取出重量(kg)"
                             materialDesign:TextFieldAssist.TextBoxViewMargin="1 0 1 0"
                             materialDesign:HintAssist.FloatingScale="0.50"
-                            Width="100"
+                            Width="120"
                             Foreground="Red"
                             Text="{Binding OutQuantity, Mode=TwoWay}"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
@@ -615,9 +615,9 @@
                     <StackPanel  Margin="0" Orientation="Horizontal" HorizontalAlignment="Right">
                         <!--<Border Background="#EDEDED" BorderThickness="3 0 0 0" BorderBrush="#A3A3A3" />-->
                         
-                        <TextBlock Margin="10 33 10 0"
+                        <TextBlock Margin="10 33 0 0"
                                Style="{StaticResource MaterialDesignSubtitle1TextBlock}">
-                        单盒库存：
+                        单盒库存(kg)：
                         </TextBlock>
                         <!--<materialDesign:Card
                         materialDesign:ShadowAssist.ShadowDepth="Depth1"
@@ -628,13 +628,13 @@
                             Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="{Binding AviQuantity}">
                         </TextBlock>
                     </materialDesign:Card>-->
-                        <TextBlock Margin="10 33 10 0"
+                        <TextBlock Margin="0 33 10 0"
                                Text="{Binding AviQuantity}"
                                Style="{StaticResource MaterialDesignSubtitle1TextBlock}">
                         </TextBlock>
-                        <TextBlock Margin="10 33 10 0"
+                        <TextBlock Margin="10 33 0 0"
                                Style="{StaticResource MaterialDesignSubtitle1TextBlock}">
-                        全部库存：
+                        全部库存(kg)：
                         </TextBlock>
                         <!--<materialDesign:Card
                         materialDesign:ShadowAssist.ShadowDepth="Depth1"
@@ -645,7 +645,7 @@
                             Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="{Binding AllQuantity}">
                         </TextBlock>
                     </materialDesign:Card>-->
-                        <TextBlock Margin="10 33 10 0"
+                        <TextBlock Margin="0 33 10 0"
                                Text="{Binding AllQuantity}"
                                Style="{StaticResource MaterialDesignSubtitle1TextBlock}">
                         </TextBlock>
@@ -739,6 +739,19 @@
                     </Button>
                     <Button
                         Style="{StaticResource MaterialDesignRaisedLightButton}"
+                        Height="80"
+                        Margin="5"
+                        FontSize="14"
+                        ToolTip="Resource name: MaterialDesignRaisedButton" 
+                        IsDefault="true" 
+                        Background="{Binding M4132StepColor}"
+                        IsEnabled="{Binding IsCancel}"
+                        Command="{Binding PostM4132StartCommand}" Visibility="Collapsed">
+
+                        ② 开始称重
+                    </Button>
+                    <Button
+                        Style="{StaticResource MaterialDesignRaisedLightButton}"
                         Margin="5"
                         FontSize="14"
                         Height="80"
@@ -764,7 +777,7 @@
                             CommandParameter="{Binding}"    
                              Background="{Binding FourthStepColor}"
                             Command="{Binding RunningTakeInCommand}" >
-                        ④存入托盘
+                        ④ 存入托盘
                     </Button>
 
                 </StackPanel>
@@ -799,7 +812,7 @@
                                         <Button Margin="5 0 0 0" Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="启动货柜" 
                                                 CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, 
                         AncestorType=DataGrid}, Path=SelectedItem}"  
-                                                Command="{Binding DataContext.PrintItemCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}" >
+                                                Command="{Binding DataContext.PrintItemCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}" Visibility="Collapsed">
                                             打印条码
                                         </Button>
                                     </StackPanel>
@@ -810,7 +823,7 @@
                         <DataGridTextColumn Binding="{Binding TrayCode}" Header="拣货托盘"/>
                         <DataGridTextColumn Binding="{Binding LocationCode}" Header="拣货储位"/>
                         <DataGridTextColumn Binding="{Binding MaterialName}" Header="物料名称" />
-                        <DataGridTextColumn Binding="{Binding Quantity}" Header="拣货数量" />
+                        <DataGridTextColumn Binding="{Binding Quantity}" Header="拣货重量(g)" />
                         <DataGridTextColumn Binding="{Binding MaterialCode}" Header="物料编码"/>
                         <DataGridTextColumn Binding="{Binding BatchCode}" Header="批次"/>
                         <DataGridTextColumn Binding="{Binding ShelfTime}" Header="拣货时间" />

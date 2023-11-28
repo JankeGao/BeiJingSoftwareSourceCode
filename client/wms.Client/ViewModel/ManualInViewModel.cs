@@ -131,6 +131,7 @@ namespace wms.Client.ViewModel
             AutoButtonClickCommand = new RelayCommand(AutoButtonClick);
             RunningTakeInCommand = new RelayCommand(RunningTakeInContainer);
             StraightInTrayCommand = new RelayCommand(StraightInTray);
+            PostM4132StartCommand = new RelayCommand(PostM4132Start);
             HandShelfCommand = new RelayCommand (HandShelf);
             DelectItemCommand = new RelayCommand<InTaskMaterialDto>(DelectInTaskItem);
             SubmitCommand = new RelayCommand(Submit);
@@ -225,6 +226,12 @@ namespace wms.Client.ViewModel
             get { return _SecondStepColor; }
             set { _SecondStepColor = value; RaisePropertyChanged(); }
         }
+        private string _M4132StepColor = "MediumPurple";
+        public string M4132StepColor
+        {
+            get { return _M4132StepColor; }
+            set { _M4132StepColor = value; RaisePropertyChanged(); }
+        }
         private string _ThirdStepColor = "MediumPurple";
         public string ThirdStepColor
         {
@@ -277,6 +284,7 @@ namespace wms.Client.ViewModel
                         this.WeightCheckColor = "MediumPurple";
                         this.StraightInTrayColor = "MediumPurple";
                         this.StraightOutTrayColor = "MediumPurple";
+                        this.M4132StepColor = "MediumPurple";
                         break;
                     case "FirstStep":
                         this.ScanColor = "MediumPurple";
@@ -287,6 +295,7 @@ namespace wms.Client.ViewModel
                         this.WeightCheckColor = "MediumPurple";
                         this.StraightInTrayColor = "MediumPurple";
                         this.StraightOutTrayColor = "MediumPurple";
+                        this.M4132StepColor = "MediumPurple";
                         break;
                     case "SecondStep":
                         this.ScanColor = "MediumPurple";
@@ -297,6 +306,7 @@ namespace wms.Client.ViewModel
                         this.WeightCheckColor = "MediumPurple";
                         this.StraightInTrayColor = "MediumPurple";
                         this.StraightOutTrayColor = "MediumPurple";
+                        this.M4132StepColor = "MediumPurple";
                         break;
                     case "ThirdStep":
                         this.ScanColor = "MediumPurple";
@@ -307,6 +317,7 @@ namespace wms.Client.ViewModel
                         this.WeightCheckColor = "MediumPurple";
                         this.StraightInTrayColor = "MediumPurple";
                         this.StraightOutTrayColor = "MediumPurple";
+                        this.M4132StepColor = "MediumPurple";
                         break;
                     case "FourthStep":
                         this.ScanColor = "MediumPurple";
@@ -317,6 +328,7 @@ namespace wms.Client.ViewModel
                         this.WeightCheckColor = "MediumPurple";
                         this.StraightInTrayColor = "MediumPurple";
                         this.StraightOutTrayColor = "MediumPurple";
+                        this.M4132StepColor = "MediumPurple";
                         break;
                     case "WeightCheck":
                         this.ScanColor = "MediumPurple";
@@ -327,6 +339,7 @@ namespace wms.Client.ViewModel
                         this.WeightCheckColor = "Green";
                         this.StraightInTrayColor = "MediumPurple";
                         this.StraightOutTrayColor = "MediumPurple";
+                        this.M4132StepColor = "MediumPurple";
                         break;
                     case "StraightInTrayCheck":
                         this.ScanColor = "MediumPurple";
@@ -337,6 +350,7 @@ namespace wms.Client.ViewModel
                         this.WeightCheckColor = "MediumPurple";
                         this.StraightInTrayColor = "Green";
                         this.StraightOutTrayColor = "MediumPurple";
+                        this.M4132StepColor = "MediumPurple";
                         break;
                     case "StraightOutTrayCheck":
                         this.ScanColor = "MediumPurple";
@@ -347,6 +361,18 @@ namespace wms.Client.ViewModel
                         this.WeightCheckColor = "MediumPurple";
                         this.StraightInTrayColor = "MediumPurple";
                         this.StraightOutTrayColor = "Green";
+                        this.M4132StepColor = "MediumPurple";
+                        break;
+                    case "M4132StepColor":
+                        this.ScanColor = "MediumPurple";
+                        this.FirstStepColor = "MediumPurple";
+                        this.SecondStepColor = "MediumPurple";
+                        this.ThirdStepColor = "MediumPurple";
+                        this.FourthStepColor = "MediumPurple";
+                        this.WeightCheckColor = "MediumPurple";
+                        this.StraightInTrayColor = "MediumPurple";
+                        this.StraightOutTrayColor = "MediumPurple";
+                        this.M4132StepColor = "Green";
                         break;
                     default:
                         this.ScanColor = "MediumPurple";
@@ -357,6 +383,7 @@ namespace wms.Client.ViewModel
                         this.WeightCheckColor = "MediumPurple";
                         this.StraightInTrayColor = "MediumPurple";
                         this.StraightOutTrayColor = "MediumPurple";
+                        this.M4132StepColor = "MediumPurple";
                         break;
                 }
             }
@@ -394,14 +421,27 @@ namespace wms.Client.ViewModel
         }
 
         /// <summary>
-        /// 储位分组
+        /// 有物料储位分组
         /// </summary>
         private ObservableCollection<LocationVIEW> _LocationGroups = new ObservableCollection<LocationVIEW>();
+
         public ObservableCollection<LocationVIEW> LocationGroups
         {
             get { return _LocationGroups; }
             set { _LocationGroups = value; RaisePropertyChanged(); }
         }
+
+        /// <summary>
+        /// 空储位分组
+        /// </summary>
+        private ObservableCollection<LocationVIEW> _LocationGroupses = new ObservableCollection<LocationVIEW>();
+
+        public ObservableCollection<LocationVIEW> LocationGroupses
+        {
+            get { return _LocationGroupses; }
+            set { _LocationGroupses = value; RaisePropertyChanged(); }
+        }
+
 
         // 供应商分组
         private ObservableCollection<Supply> _SupplyGroups = new ObservableCollection<Supply>();
@@ -539,6 +579,12 @@ namespace wms.Client.ViewModel
         /// </summary>
         private RelayCommand _handShelfCommand;
 
+        /// <summary>
+        /// 开始称重M4132置为ON
+        /// </summary>
+        public RelayCommand PostM4132StartCommand { get; private set; }
+
+        
         /// <summary>
         /// 打开新页面，string: 模块名称
         /// </summary>
@@ -733,14 +779,24 @@ namespace wms.Client.ViewModel
         }
 
         /// <summary>
-        /// 当前操作物料重量
+        /// 当前存入物料重量
         /// </summary>
         public decimal InQuantity
         {
-            get { return weightUtils.WeighingQuantity; }
-            set { weightUtils.WeighingQuantity = value; RaisePropertyChanged(); }
+            get { return inQuantity; }
+            set { inQuantity = Math.Round(value, 1); RaisePropertyChanged(); }
         }
-        //private decimal inQuantity = 1;
+        private decimal inQuantity = 0;
+
+        /// <summary>
+        /// 当前实测物料重量
+        /// </summary>
+        public decimal WeighingQuantityMeasured
+        {
+            get { return weighingQuantityMeasured; }
+            set { weighingQuantityMeasured = Math.Round(value, 2); RaisePropertyChanged(); }
+        }
+        private decimal weighingQuantityMeasured = 0;
 
         /// <summary>
         /// 生产日期
@@ -903,6 +959,16 @@ namespace wms.Client.ViewModel
         {
             get { return aviLocationList; }
             set { aviLocationList = value; RaisePropertyChanged(); }
+        }
+
+        private List<LocationVIEW> boxCountList = new List<LocationVIEW>();
+        /// <summary>
+        /// 当前物料的最大载具存放重量
+        /// </summary>
+        public List<LocationVIEW> BoxCountList
+        {
+            get { return boxCountList; }
+            set { boxCountList = value; RaisePropertyChanged(); }
         }
 
         /// <summary>
@@ -1135,7 +1201,19 @@ namespace wms.Client.ViewModel
                         }
                         UnitWeight = material.UnitWeight;
                     }
+
                     SelectMaterial();
+
+                    //RunningContainer();
+
+                    // 并行执行两个异步方法
+
+                    Task task1 = StartGetM4131Result();
+                    Task task2 = StartGetWeighingQuantity();
+                    await Task.WhenAll(task1, task2);
+
+                    // 继续执行后续代码
+
                 }
                 else
                 {
@@ -1144,7 +1222,19 @@ namespace wms.Client.ViewModel
                     SelectMaterialName = materialCode.Name;
                     SelectMaterialCode = materialCode.Code;
                     UnitWeight = materialCode.UnitWeight;
+
                     SelectMaterial();
+
+                    //RunningContainer();
+
+                    // 并行执行两个异步方法
+
+                    Task task1 = StartGetM4131Result();
+                    Task task2 = StartGetWeighingQuantity();
+                    await Task.WhenAll(task1, task2);
+
+                    // 继续执行后续代码
+
                 }
             }
             catch (Exception ex)
@@ -1273,6 +1363,8 @@ namespace wms.Client.ViewModel
                 {
                     AviLocationList = JsonHelper.DeserializeObject<List<LocationVM>> (inTask.Result.Data.ToString());
 
+                    //BoxCountList = JsonHelper.DeserializeObject<List<LocationVIEW>>(inTask.Result.Data.ToString());
+
                     if (AviLocationList.Count==0)
                     {
                         Msg.Warning("您暂无该物料所在托盘的操作权限或无可存放储位");
@@ -1282,6 +1374,7 @@ namespace wms.Client.ViewModel
 
                     var trayList = AviLocationList.GroupBy(a => a.TrayCode).ToArray();
                     _TaryGroups.Clear();
+
 
                     foreach (var item in trayList)
                     {
@@ -1328,12 +1421,21 @@ namespace wms.Client.ViewModel
         {
             try
             {
-                // 查询该物料可存放的储位
-                var locationGroup = AviLocationList.Where(a => a.TrayCode == SelectTrayCode).OrderBy(a=>a.AviQuantity).ToList();
+                //var boxCount = BoxCountList.Where(a => a.TrayCode == SelectTrayCode).OrderBy(a => a.Quantity).ToList();
+
+                // 查询该物料可存放的储位,空储位
+                var locationGroup = AviLocationList.Where(a => a.TrayCode == SelectTrayCode && a.AviQuantity == a.BoxCount).OrderBy(a=>a.AviQuantity).ToList();
+                //有物料储位
+                var locationGroupes = AviLocationList.Where(a => a.TrayCode == SelectTrayCode && a.AviQuantity < a.BoxCount).OrderBy(a => a.AviQuantity).ToList();
+
                 _LocationGroups.Clear();
+
+                _LocationGroupses.Clear();
+
 
                 foreach (var item in locationGroup)
                 {
+
                     TrayId = (int)item.TrayId;
                     var LocationVIEW = new LocationVIEW()
                     {
@@ -1342,10 +1444,27 @@ namespace wms.Client.ViewModel
                     _LocationGroups.Add(LocationVIEW);
                 }
 
-                if (locationGroup.Count>0)
+                foreach (var item in locationGroupes)
+                {
+
+                    TrayId = (int)item.TrayId;
+                    var LocationVIEW = new LocationVIEW()
+                    {
+                        Code = item.Code
+                    };
+                    _LocationGroupses.Add(LocationVIEW);
+                }
+
+                if (locationGroup.Count > 0)
                 {
                     SelectLocationCode = _LocationGroups[0].Code;
                 }
+
+                if (locationGroupes.Count > 0)
+                {
+                    SelectLocationCode = _LocationGroupses[0].Code;
+                }
+
             }
             catch (Exception ex)
             {
@@ -1372,7 +1491,7 @@ namespace wms.Client.ViewModel
                     .FirstOrDefault();
                 if (stock != null)
                 {
-                    CurQuantity = (decimal)stock.Quantity;
+                    CurQuantity = (decimal)stock.Quantity / 1000;
                 }
                 else
                 {
@@ -1380,7 +1499,7 @@ namespace wms.Client.ViewModel
                 }
                 BoxUrl = _basePath + location.BoxUrl;
                 BoxName = location.BoxName;
-                AviQuantity = location.AviQuantity.GetValueOrDefault(0);
+                AviQuantity = location.AviQuantity.GetValueOrDefault(0) / 1000;
                 XLight = location.XLight;
                 YLight = location.YLight;
                 XLightLenght = location.XLenght.GetValueOrDefault(0);
@@ -1660,6 +1779,110 @@ namespace wms.Client.ViewModel
             }
         }
 
+        private bool M4131Start = false;
+
+        /// <summary>
+        /// 每隔100毫秒触发一次M4131状态获取
+        /// </summary>
+        /// <returns></returns>
+        public async Task StartGetM4131Result()
+        {
+            while(M4131Start == false)
+            {
+                GetM4131Result();
+                await Task.Delay(100);
+            }
+        }
+
+        public async void GetM4131Result()
+        {
+            try
+            {
+                // 读取PLC 状态信息
+                var baseControlService = ServiceProvider.Instance.Get<IBaseControlService>();
+
+                // 返回当前称M4131按钮状态
+                var M4131Result = await baseControlService.GetM4131();
+
+                if (M4131Result.Data != null && bool.Parse(M4131Result.Data.ToString()) == true)
+                {
+
+                    //Thread.Sleep(200);
+                    HandShelf();
+                    //Thread.Sleep(200);
+                    Submit();
+                    M4131Start = true;
+                }
+                else
+                {
+                    return;
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                Msg.Error(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 每隔200毫秒触发一次物料称重刷新
+        /// </summary>
+        /// <returns></returns>
+        public async Task StartGetWeighingQuantity()
+        {
+            while (true)
+            {
+                //if (String.IsNullOrEmpty(UnitWeight.ToString()))
+                //{
+                //    return;
+                //}
+                GetWeighingQuantity();
+                //if (isAlarmRaised)
+                //{
+                //    return;
+                //}
+                await Task.Delay(200);
+            }
+        }
+
+        /// <summary>
+        /// 返回当前称重物料数量
+        /// </summary>
+        public async void GetWeighingQuantity()
+        {
+
+            try
+            {
+                // 读取PLC 状态信息
+                var baseControlService = ServiceProvider.Instance.Get<IBaseControlService>();
+
+                // 返回当前称重物料重量
+                var weightResult = await baseControlService.GetWeight();
+                if (weightResult.Success)
+                {
+                    decimal weighingQuantity = decimal.Parse(weightResult.Data.ToString());
+                    InQuantity = weighingQuantity;
+                }
+
+                // 返回当前称重实测物料重量
+                var weightResultMeasured = await baseControlService.GetWeightMeasured();
+                if (weightResultMeasured.Success)
+                {
+                    decimal weighingQuantityMeasured = decimal.Parse(weightResultMeasured.Data.ToString());
+                    WeighingQuantityMeasured = weighingQuantityMeasured;
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+
+                Msg.Error(ex.Message);
+            }
+        }
+
         /// <summary>
         /// 启动货柜
         /// </summary>
@@ -1692,6 +1915,8 @@ namespace wms.Client.ViewModel
                         return;
                     }
                 }
+
+
                 //else
                 //{
                 //    if (XLight!=0)
@@ -1701,12 +1926,14 @@ namespace wms.Client.ViewModel
                 //}
 
                 // 判断是否启用单包条码管理
-                if (InQuantity > AviQuantity)
-                {
-                    GlobalData.IsFocus = true;
-                    Msg.Warning("超出该容器可存放的最多数量！");
-                    return;
-                }
+
+                //if (InQuantity > AviQuantity)
+                //{
+                //    GlobalData.IsFocus = true;
+                //    Msg.Warning("超出该容器可存放的最多数量！");
+                //    return;
+                //}
+
                 // 核查用户是否有此模块操作权限
                 var user = ServiceProvider.Instance.Get<IUserService>();
                 var authCheck = user.GetCheckTrayAuth((int)TrayId);
@@ -1741,10 +1968,10 @@ namespace wms.Client.ViewModel
                 if (runningContainer.Result.Success)
                 {
                     GlobalData.IsFocus = true;
-                    if (CurTratCode != SelectTrayCode)
-                    {
-                        Msg.Info("正在取出托盘,请确认托盘到达指定位置后再关闭窗口");
-                    }
+                    //if (CurTratCode != SelectTrayCode)
+                    //{
+                    //    Msg.Info("正在取出托盘,请确认托盘到达指定位置后再关闭窗口");
+                    //}
                     CurTratCode = SelectTrayCode;
                     orgXLight = XLight;
                 }
@@ -1753,6 +1980,16 @@ namespace wms.Client.ViewModel
                     GlobalData.IsFocus = true;
                     Msg.Error(runningContainer.Result.Message);
                 }
+
+                // 并行执行两个异步方法
+
+                Task task1 = StartGetM4131Result();
+                Task task2 = StartGetWeighingQuantity();
+                await Task.WhenAll(task1, task2);
+
+                // 继续执行后续代码
+
+
             }
             catch (Exception ex)
             {
@@ -1868,6 +2105,61 @@ namespace wms.Client.ViewModel
                 Msg.Error(ex.Message);
             }
         }
+        /// <summary>
+        /// 开始称重M4132置为ON
+        /// </summary>
+        public async void PostM4132Start()
+        {
+            try
+            {
+                ChangeColor("M4132StepColor");
+                if (GlobalData.DeviceStatus == (int)DeviceStatusEnum.Fault)
+                {
+                    GlobalData.IsFocus = true;
+                    Msg.Warning("设备离线状态，无法启动货柜！");
+                    return;
+                }
+
+                // await dialog.c
+                // 读取PLC 状态信息
+                var baseControlService = ServiceProvider.Instance.Get<IBaseControlService>();
+                var runningContainer = baseControlService.PostM4132().Result;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+
+        /// <summary>
+        /// 取消称重M4139置为ON
+        /// </summary>
+        public async void PostM4139Start()
+        {
+            try
+            {
+                if (GlobalData.DeviceStatus == (int)DeviceStatusEnum.Fault)
+                {
+                    GlobalData.IsFocus = true;
+                    Msg.Warning("设备离线状态，无法启动货柜！");
+                    return;
+                }
+
+                // await dialog.c
+                // 读取PLC 状态信息
+                var baseControlService = ServiceProvider.Instance.Get<IBaseControlService>();
+                var runningContainer = baseControlService.PostM4139().Result;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
 
         /// <summary>
         /// 托盘存入货柜
@@ -1966,41 +2258,54 @@ namespace wms.Client.ViewModel
         {
             try
             {
+
+                //// await dialog.c
+                //// 读取PLC 状态信息
+                //var baseControlService = ServiceProvider.Instance.Get<IBaseControlService>();
+
+                //var runingEntity = new RunningContainer()
+                //{
+                //    ContainerCode = ContainerCode,
+                //    TrayCode = Convert.ToInt32(SelectTrayCode),
+                //    XLight = XLight,
+                //    XLenght = XLightLenght
+                //};
+                //var container = ContainerRepository.Query().FirstOrDefault(a => a.Code == ContainerCode);
+                //if (container != null)
+                //{
+                //    runingEntity.ContainerType = container.ContainerType;
+                //    runingEntity.IpAddress = container.Ip;
+                //    runingEntity.Port = int.Parse(container.Port);
+                //}
+
+                //// 货柜运行
+                //var runningContainer = baseControlService.PostStartRunningContainer(runingEntity);
+                //if (runningContainer.Result.Success)
+                //{
+                //    GlobalData.IsFocus = true;
+                //    //if (CurTratCode != SelectTrayCode)
+                //    //{
+                //    //    Msg.Info("正在取出托盘,请确认托盘到达指定位置后再关闭窗口");
+                //    //}
+                //    CurTratCode = SelectTrayCode;
+                //    orgXLight = XLight;
+                //}
+
                 //if (InTaskMaterial.Any(a => a.LocationCode == SelectLocationCode && a.MaterialCode != SelectMaterialCode))
                 //{
                 //    Msg.Warning("");
                 //    return;
                 //}
                 ChangeColor("SecondStep");
-                if (InQuantity == 0)
-                {
-                    Msg.Warning("请输入入库数量");
-                    return;
-                }
-                // 判断是否启用单包条码管理
-                if (InQuantity > AviQuantity)
-                {
-                    GlobalData.IsFocus = true;
-                    Msg.Warning("超出该容器可存放的最多数量！");
-                    return;
-                }
-                if (CurTratCode != SelectTrayCode)
-                {
-                    Msg.Warning("当前货柜未运行至此托盘，请启动货柜！");
-                    return;
-                }
-
-                if (orgXLight != XLight)
-                {
-                    Msg.Warning("当前货柜未运行至此储位，请启动货柜！");
-                    return;
-                }
+                
 
                 if (InQuantity == 0)
                 {
-                    Msg.Warning("请输入入库数量");
+                    Msg.Warning("请输入入库重量");
+                    M4131Start = false;
                     return;
                 }
+
                 var materialEntity = MaterialContract.Materials.FirstOrDefault(a => a.Code == SelectMaterialCode);
 
                 // 允许混批
@@ -2048,6 +2353,7 @@ namespace wms.Client.ViewModel
                 {
                     InQuantity = 0;
                     Msg.Warning("核验失败，已超过最大存放重量！");
+                    M4131Start = false;
                     return;
                 }
                 this.IsCancel = false;
@@ -2056,9 +2362,9 @@ namespace wms.Client.ViewModel
                 InTaskMaterialEntity.LocationCode = SelectLocationCode;
                 InTaskMaterialEntity.SuggestTrayCode = SelectTrayCode;
                 InTaskMaterialEntity.MaterialName = materialEntity.Name;
-                InTaskMaterialEntity.Quantity = InQuantity;
-                InTaskMaterialEntity.RealInQuantity= InQuantity;
-                InTaskMaterialEntity.InTaskMaterialQuantity = InQuantity;
+                InTaskMaterialEntity.Quantity = (int)Math.Floor(InQuantity * 1000);
+                InTaskMaterialEntity.RealInQuantity= (int)Math.Floor(InQuantity * 1000);
+                InTaskMaterialEntity.InTaskMaterialQuantity = (int)Math.Floor(InQuantity * 1000);
                 InTaskMaterialEntity.BatchCode = BatchCode;
                 InTaskMaterialEntity.SuggestContainerCode = ContainerCode;
                 InTaskMaterialEntity.ManufactrueDate = ManufactureDate;
@@ -2073,6 +2379,9 @@ namespace wms.Client.ViewModel
                 //RunningContainer();
                 // OffXLight();
                 Clear();
+
+                PostM4139Start();
+
             }
             catch (Exception ex)
             {

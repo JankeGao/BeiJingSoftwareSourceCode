@@ -842,6 +842,9 @@ namespace Bussiness.Services
                         if (stock.Quantity == 0)
                         {
                             StockRepository.Delete(stock);
+                            var LocationEntity = LocationRepository.Query().FirstOrDefault(a => a.Code == item.LocationCode);
+                            LocationEntity.LockMaterialCode = null;
+                            LocationRepository.Update(LocationEntity);
                         }
                         else
                         {

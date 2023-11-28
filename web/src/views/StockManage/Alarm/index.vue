@@ -78,7 +78,7 @@
               <span>{{ scope.row.MaterialName }}</span>
             </template>
           </el-table-column>
-          <el-table-column :label="'数量'" width="80" align="center" show-overflow-tooltip>
+          <el-table-column :label="'重量(g)'" width="80" align="center" show-overflow-tooltip>
             <template slot-scope="scope">
               <span>{{ scope.row.Quantity }}</span>
             </template>

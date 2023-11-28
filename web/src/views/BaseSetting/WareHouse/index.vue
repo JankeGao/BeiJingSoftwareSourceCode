@@ -960,11 +960,11 @@
                 <el-radio v-model="radio" label="2" @change="changeLayoutDirc">纵向摆放</el-radio>
               </template>
             </div>
-            <el-form-item v-if="Level==3" :label="'X轴存放数量'" prop="XCount">
-              <el-input v-model="XCount" clearable class="dialog-input" placeholder="请输入X轴存放数量" />
+            <el-form-item v-if="Level==3" :label="'X轴存放重量(g)'" prop="XCount">
+              <el-input v-model="XCount" clearable class="dialog-input" placeholder="请输入X轴存放重量(g)" />
             </el-form-item>
-            <el-form-item v-if="Level==3" :label="'Y轴存放数量'" prop="YCount">
-              <el-input v-model="YCount" clearable class="dialog-input" placeholder="请输入Y轴存放数量" />
+            <el-form-item v-if="Level==3" :label="'Y轴存放重量(g)'" prop="YCount">
+              <el-input v-model="YCount" clearable class="dialog-input" placeholder="请输入Y轴存放重量(g)" />
             </el-form-item>
             <div v-if="Level==3" style="padding:10px">
               <span>
@@ -1015,7 +1015,7 @@
               </el-image>-->
               <img :src="materialUrl" fit="contain" style="width: 300px; height: 200px">
               <div>
-                <span>最大存放数量：</span>
+                <span>最大存放重量(g)：</span>
                 <span>{{ SuggestMaterial.BoxCount }}</span>
               </div>
             </el-card>
@@ -1462,14 +1462,14 @@ export default {
   data() {
     const validateX = (rule, value, callback) => {
       if (this.XCount > this.LimitXCount) {
-        callback(new Error('超出X轴方向可存放数量，最多存放' + this.LimitXCount))
+        callback(new Error('超出X轴方向可存放重量(g)，最多存放' + this.LimitXCount))
       } else {
         callback()
       }
     }
     const validateY = (rule, value, callback) => {
       if (this.YCount > this.LimitYCount) {
-        callback(new Error('超出Y轴方向可存放数量，最多存放' + this.LimitYCount))
+        callback(new Error('超出Y轴方向可存放重量(g)，最多存放' + this.LimitYCount))
       } else {
         callback()
       }
@@ -1761,7 +1761,7 @@ export default {
             cancelButtonText: '取消',
             type: 'warning'
           }).then(() => {
-            // 需要对数据进行数量，否则会出现this导致的作用域错误
+            // 需要对数据进行重量(g)，否则会出现this导致的作用域错误
             this.SuggestMaterial = {
               Code: ''
             }
@@ -2629,7 +2629,7 @@ export default {
         this.BoxMaterialMapList = result
         console.log(this.BoxMaterialMapList)
       })
-      // 重新计算可存放数量
+      // 重新计算可存放重量(g)
       this.avaviableBoxNum()
       this.dialogBoxVisible = false
     },
@@ -2791,7 +2791,7 @@ export default {
       getLocationByLayoutId(this.selectComp.identifier).then(response => {
         var resData = JSON.parse(response.data.Content)
         if (resData.LockMaterialCode === null || resData.LockMaterialCode === '') {
-          // 需要对数据进行数量，否则会出现this导致的作用域错误
+          // 需要对数据进行重量(g)，否则会出现this导致的作用域错误
           if (data == '') {
             this.SuggestMaterial = {
               Code: '',
@@ -2890,14 +2890,14 @@ export default {
       }
       this.avaviableBoxNum()
     },
-    // 计算可存放的托盘数量
+    // 计算可存放的托盘重量(g)
     avaviableBoxNum() {
       // 缩放处理
       const tempTrayWidth = this.TrayEntity.TrayWidth / this.Scale
       const tempTrayLenght = this.TrayEntity.TrayLength / this.Scale
       const tempBoxWidth = this.Box.BoxWidth / this.Scale
       const tempBoxHeight = this.Box.BoxLength / this.Scale
-      // 重新核算可存放数量
+      // 重新核算可存放重量(g)
       this.XCount = Math.floor((tempTrayWidth - this.origin.xp) / tempBoxWidth)
       this.YCount = Math.floor((tempTrayLenght - this.origin.yp) / tempBoxHeight)
       this.LimitXCount = this.XCount
@@ -3717,7 +3717,7 @@ export default {
         })
       })
     },
-    // 上传文件个数超过定义的数量
+    // 上传文件个数超过定义的重量(g)
     handleExceed(files, fileList) {
       this.$message.warning(`当前限制选择 1 个文件，请删除后继续上传`)
     },

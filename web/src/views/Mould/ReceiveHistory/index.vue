@@ -51,7 +51,7 @@
               <span>{{ scope.row.TaskCode }}</span>
             </template>
           </el-table-column>
-          <el-table-column :label="'领用数量'" width="100" align="center" show-overflow-tooltip>
+          <el-table-column :label="'领用重量(g)'" width="100" align="center" show-overflow-tooltip>
             <template slot-scope="scope">
               <span>{{ scope.row.Quantity }}</span>
             </template>

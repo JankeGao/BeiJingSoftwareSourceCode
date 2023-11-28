@@ -227,6 +227,10 @@ namespace Bussiness.Entitys
         /// </summary>
         public decimal? AviQuantity { get; set; }
 
+        /// <summary>
+        /// 该储位可最多存放的数量
+        /// </summary>
+        public decimal? BoxCount { get; set; }
 
         /// <summary>
         /// 库位当前存储的物料

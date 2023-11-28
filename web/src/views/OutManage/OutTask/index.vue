@@ -215,12 +215,12 @@
             <span>{{ scope.row.BatchCode }}</span>
           </template>
         </el-table-column>
-        <el-table-column :label="'待拣货数量'" width="90" align="center" show-overflow-tooltip>
+        <el-table-column :label="'待拣货重量(g)'" width="90" align="center" show-overflow-tooltip>
           <template slot-scope="scope">
             <span>{{ scope.row.Quantity }}</span>
           </template>
         </el-table-column>
-        <el-table-column :label="'已拣货数量'" width="90" align="center" show-overflow-tooltip>
+        <el-table-column :label="'已拣货重量(g)'" width="90" align="center" show-overflow-tooltip>
           <template slot-scope="scope">
             <span>{{ scope.row.RealPickedQuantity }}</span>
           </template>
@@ -337,12 +337,12 @@
             <span>{{ scope.row.BatchCode }}</span>
           </template>
         </el-table-column>
-        <el-table-column :label="'待拣货数量'" width="90" align="center" show-overflow-tooltip>
+        <el-table-column :label="'待拣货重量(g)'" width="90" align="center" show-overflow-tooltip>
           <template slot-scope="scope">
             <span>{{ scope.row.Quantity }}</span>
           </template>
         </el-table-column>
-        <el-table-column :label="'已拣货数量'" width="90" align="center" show-overflow-tooltip>
+        <el-table-column :label="'已拣货重量(g)'" width="90" align="center" show-overflow-tooltip>
           <template slot-scope="scope">
             <span>{{ scope.row.RealPickedQuantity }}</span>
           </template>
@@ -389,12 +389,12 @@
       >
         <el-row :gutter="20">
           <el-col :span="12">
-            <el-form-item :label="'出库数量'" prop="MaterialLabel">
+            <el-form-item :label="'出库重量(g)'" prop="MaterialLabel">
               <el-input
                 v-model="OutTaskMaterial.OutTaskMaterialQuantity"
                 :disabled="OutTaskMaterial.IsPackage===true"
                 class="dialog-input"
-                placeholder="请输入出库数量"
+                placeholder="请输入出库重量(g)"
               />
             </el-form-item>
             <el-form-item :label="'物料条码'">
@@ -423,7 +423,7 @@
                 class="dialog-input"
               >{{ '---X轴:'+OutTaskMaterial.XLight +'---Y轴:'+OutTaskMaterial.YLight }}</span>
             </el-form-item>
-            <el-form-item :label="'待拣货数量'">
+            <el-form-item :label="'待拣货重量(g)'">
               <span
                 class="dialog-input"
               >{{ OutTaskMaterial.Quantity-OutTaskMaterial.RealPickedQuantity }}</span>
@@ -494,7 +494,7 @@
                 <span>容器</span>
               </el-col>
               <el-col :span="2">
-                <span>数量</span>
+                <span>重量(g)</span>
               </el-col>
               <el-col :span="4">
                 <span>批次</span>
@@ -848,7 +848,7 @@ export default {
       // if (this.Label.Quantity === '' || this.Label.Quantity === null) {
       //   this.$message({
       //     type: 'error',
-      //     message: '未获取到正确的标签数量，无法出库'
+      //     message: '未获取到正确的标签重量(g)，无法出库'
       //   })
       //   return
       // }
@@ -1175,7 +1175,7 @@ export default {
       if (item.Quantity === 0 || item.Quantity === '0' || item.Quantity === '0.0' || item.Quantity === '0.00') {
         this.$message({
           title: '成功',
-          message: '请输入数量',
+          message: '请输入重量(g)',
           type: 'error',
           duration: 2000
         })

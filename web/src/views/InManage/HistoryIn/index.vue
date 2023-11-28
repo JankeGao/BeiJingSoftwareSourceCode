@@ -96,17 +96,17 @@
               <span>{{ scope.row.MaterialLabel }}</span>
             </template>
           </el-table-column>
-          <el-table-column :label="'数量'" width="70" align="center" show-overflow-tooltip>
+          <el-table-column :label="'重量(g)'" width="70" align="center" show-overflow-tooltip>
             <template slot-scope="scope">
               <span>{{ scope.row.Quantity }}</span>
             </template>
           </el-table-column>
-          <el-table-column :label="'单位'" width="65" show-overflow-tooltip align="center">
+          <el-table-column :label="'备注3'" width="65" show-overflow-tooltip align="center">
             <template slot-scope="scope">
               <span>{{ scope.row.Unit }}</span>
             </template>
           </el-table-column>
-          <el-table-column :label="'价格'" width="65" show-overflow-tooltip align="center">
+          <el-table-column :label="'备注2'" width="65" show-overflow-tooltip align="center">
             <template slot-scope="scope">
               <span>{{ scope.row.Remark2 }}</span>
             </template>

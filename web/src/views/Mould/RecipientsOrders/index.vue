@@ -167,7 +167,7 @@
             <span>{{ scope.row.Remarks }}</span>
           </template>
         </el-table-column>
-        <el-table-column :label="'领用数量'" width="150" align="center" show-overflow-tooltip>
+        <el-table-column :label="'领用重量(g)'" width="150" align="center" show-overflow-tooltip>
           <template slot-scope="scope">
             <span>{{ scope.row.RecipientsOrdersQuantity }}</span>
           </template>
@@ -266,7 +266,7 @@ export default {
         Code: '', // 编码
         InformationCode: '', // 清单编码
         Remarks: '', // 备注
-        RecipientsOrdersQuantity: '', // 数量
+        RecipientsOrdersQuantity: '', // 重量(g)
         RecipientsOrdersState: '', // 领用状态
         InCode: '',
         PredictReturnTime: '',
@@ -802,7 +802,7 @@ export default {
       if (item.Quantity === 0 || item.Quantity === '0' || item.Quantity === '0.0' || item.Quantity === '0.00') {
         this.$message({
           title: '成功',
-          message: '请输入数量',
+          message: '请输入重量(g)',
           type: 'error',
           duration: 2000
         })
@@ -887,7 +887,7 @@ export default {
       const isTextComputer = file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
       return (isText | isTextComputer)
     },
-    // 上传文件个数超过定义的数量
+    // 上传文件个数超过定义的重量(g)
     handleExceed(files, fileList) {
       this.$message.warning(`当前限制选择 1 个文件，请删除后继续上传`)
     },
@@ -1023,7 +1023,7 @@ export default {
       if (this.InMaterial.Quantity === 0 || this.InMaterial.Quantity === '0' || this.InMaterial.Quantity === '0.0' || this.InMaterial.Quantity === '0.00') {
         this.$message({
           title: '成功',
-          message: '请输入数量',
+          message: '请输入重量(g)',
           type: 'error',
           duration: 2000
         })

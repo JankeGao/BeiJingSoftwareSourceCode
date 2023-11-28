@@ -74,12 +74,44 @@ namespace PLCServer
         DataResult GetAlarmInformation();
 
         /// <summary>
+        /// 获取M4131位置按钮状态
+        /// </summary>
+        /// <returns></returns>
+        [OperationContract]
+        [WebInvoke(Method = "GET", UriTemplate = "GetM4131", BodyStyle = WebMessageBodyStyle.Bare, RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        DataResult GetM4131();
+
+        /// <summary>
+        /// 开始称重M4132置为ON
+        /// </summary>
+        /// <returns></returns>
+        [OperationContract]
+        [WebInvoke(Method = "POST", UriTemplate = "PostM4132", BodyStyle = WebMessageBodyStyle.Bare, RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        DataResult PostM4132();
+
+        /// <summary>
+        /// 取消称重M4139置为ON
+        /// </summary>
+        /// <returns></returns>
+        [OperationContract]
+        [WebInvoke(Method = "POST", UriTemplate = "PostM4139", BodyStyle = WebMessageBodyStyle.Bare, RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        DataResult PostM4139();
+
+        /// <summary>
         /// 获取物料重量
         /// </summary>
         /// <returns></returns>
         [OperationContract]
         [WebInvoke(Method = "GET", UriTemplate = "GetWeight", BodyStyle = WebMessageBodyStyle.Bare, RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         DataResult GetWeight();
+
+        /// <summary>
+        /// 获取实测物料重量
+        /// </summary>
+        /// <returns></returns>
+        [OperationContract]
+        [WebInvoke(Method = "GET", UriTemplate = "GetWeightMeasured", BodyStyle = WebMessageBodyStyle.Bare, RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        DataResult GetWeightMeasured();
 
         /// <summary>
         /// 复位报警
@@ -478,12 +510,21 @@ namespace PLCServer
 
         #region 整理存储空间
         /// <summary>
-        /// 开始整理
+        /// 开始整理前侧空间
         /// </summary>
         /// <returns></returns>
         [OperationContract]
         [WebInvoke(Method = "POST", UriTemplate = "StartM800", BodyStyle = WebMessageBodyStyle.Bare, RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         DataResult StartM800();
+
+        /// <summary>
+        /// 开始整理后侧空间
+        /// </summary>
+        /// <returns></returns>
+        [OperationContract]
+        [WebInvoke(Method = "POST", UriTemplate = "StartM810", BodyStyle = WebMessageBodyStyle.Bare, RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        DataResult StartM810();
+
         /// <summary>
         /// 监视整理是否完成
         /// </summary>

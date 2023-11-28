@@ -99,7 +99,7 @@ export default {
         },
         xAxis: [{
           type: 'category',
-          data: ['库存数量', '正常数量', '锁定数量'],
+          data: ['库存重量(g)', '正常重量(g)', '锁定重量(g)'],
           axisTick: {
             alignWithLabel: true
           }

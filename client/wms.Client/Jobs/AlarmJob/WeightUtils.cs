@@ -18,5 +18,15 @@ namespace wms.Client.Jobs.AlarmJob
             set { weighingAmount = value; RaisePropertyChanged(); }
         }
         private decimal weighingAmount;
+
+        /// <summary>
+        /// 实测物料重量
+        /// </summary>
+        public decimal WeighingQuantityMeasured
+        {
+            get { return weighingQuantityMeasured; }
+            set { weighingQuantityMeasured = value; RaisePropertyChanged(); }
+        }
+        private decimal weighingQuantityMeasured;
     }
 }

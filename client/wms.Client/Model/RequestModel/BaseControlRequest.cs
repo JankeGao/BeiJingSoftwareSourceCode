@@ -17,13 +17,41 @@ namespace wms.Client.Model.RequestModel
     {
         public override string route { get => DeviceIP + "GetAlarmInformation"; }
     }
-
+    /// <summary>
+    /// 获取M4131按钮状态
+    /// </summary>
+    public class GetM4131Request : BaseRequest
+    {
+        public override string route { get => DeviceIP + "GetM4131"; }
+    }
+    /// <summary>
+    /// 开始称重M4132置为ON
+    /// </summary>
+    public class PostM4132Request : BaseRequest
+    {
+        public override string route { get => DeviceIP + "PostM4132"; }
+    }
+    /// <summary>
+    /// 取消称重M4139置为ON
+    /// </summary>
+    public class PostM4139Request : BaseRequest
+    {
+        public override string route { get => DeviceIP + "PostM4139"; }
+    }
     /// <summary>
     /// 获取物料重量
     /// </summary>
     public class GetWeightRequest : BaseRequest
     {
         public override string route { get => DeviceIP + "GetWeight"; }
+    }
+
+    /// <summary>
+    /// 获取实测物料重量
+    /// </summary>
+    public class GetWeightMeasuredRequest : BaseRequest
+    {
+        public override string route { get => DeviceIP + "GetWeightMeasured"; }
     }
 
     /// <summary>

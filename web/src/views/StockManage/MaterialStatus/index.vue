@@ -56,17 +56,17 @@
             <span>{{ scope.row.MaterialName }}</span>
           </template>
         </el-table-column>
-        <el-table-column :label="'库存数量'" width="180" show-overflow-tooltip align="center">
+        <el-table-column :label="'库存重量(g)'" width="180" show-overflow-tooltip align="center">
           <template slot-scope="scope">
             <span>{{ scope.row.Quantity }}</span>
           </template>
         </el-table-column>
-        <el-table-column :label="'正常数量'" width="180" show-overflow-tooltip align="center">
+        <el-table-column :label="'正常重量(g)'" width="180" show-overflow-tooltip align="center">
           <template slot-scope="scope">
             <span>{{ (scope.row.Quantity)-(scope.row.LockedQuantity) }}</span>
           </template>
         </el-table-column>
-        <el-table-column :label="'锁定数量'" width="180" show-overflow-tooltip align="center">
+        <el-table-column :label="'锁定重量(g)'" width="180" show-overflow-tooltip align="center">
           <template slot-scope="scope">
             <span>{{ scope.row.LockedQuantity }}</span>
           </template>

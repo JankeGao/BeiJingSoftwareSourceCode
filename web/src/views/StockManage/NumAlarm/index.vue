@@ -69,13 +69,13 @@
               <span>{{ scope.row.MinNum }}</span>
             </template>
           </el-table-column>
-          <el-table-column :label="'库存数量'" width="160" show-overflow-tooltip align="center">
+          <el-table-column :label="'库存重量(g)'" width="160" show-overflow-tooltip align="center">
             <template slot-scope="scope">
               <span v-if="scope.row.Status===2" style="color:red">{{ scope.row.Quantity }}</span>
               <span v-else>{{ scope.row.Quantity }}</span>
             </template>
           </el-table-column>
-          <!-- <el-table-column :label="'库存导出数量'" width="100" show-overflow-tooltip align="center">
+          <!-- <el-table-column :label="'库存导出重量(g)'" width="100" show-overflow-tooltip align="center">
             <template slot-scope="scope">
               <span>{{ scope.row.Quantityes }}</span>
             </template>

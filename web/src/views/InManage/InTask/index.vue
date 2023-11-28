@@ -225,12 +225,12 @@
             <span>{{ scope.row.BatchCode }}</span>
           </template>
         </el-table-column>
-        <el-table-column :label="'待上架数量'" width="150" align="center" show-overflow-tooltip>
+        <el-table-column :label="'待上架重量(g)'" width="150" align="center" show-overflow-tooltip>
           <template slot-scope="scope">
             <span>{{ scope.row.Quantity }}</span>
           </template>
         </el-table-column>
-        <el-table-column :label="'已上架数量'" width="150" align="center" show-overflow-tooltip>
+        <el-table-column :label="'已上架重量(g)'" width="150" align="center" show-overflow-tooltip>
           <template slot-scope="scope">
             <span>{{ scope.row.RealInQuantity }}</span>
           </template>
@@ -295,13 +295,13 @@
                 />
               </span>
             </el-form-item>
-            <el-form-item :label="'入库数量'" prop="MaterialLabel">
+            <el-form-item :label="'入库重量(g)'" prop="MaterialLabel">
               <el-input
                 v-model="Label.Quantity"
                 :disabled="InTaskMaterial.IsPackage===true"
                 class="dialog-input"
                 width="200px"
-                placeholder="请输入入库数量"
+                placeholder="请输入入库重量(g)"
               />
             </el-form-item>
             <el-form-item :label="'物料编码'">
@@ -328,7 +328,7 @@
                 class="dialog-input"
               >{{ '---X轴:'+InTaskMaterial.XLight +'---Y轴:'+InTaskMaterial.YLight }}</span>
             </el-form-item>
-            <el-form-item :label="'待上架数量'">
+            <el-form-item :label="'待上架重量(g)'">
               <span class="dialog-input">{{ InTaskMaterial.Quantity-InTaskMaterial.RealInQuantity }}</span>
             </el-form-item>
             <el-form-item :label="'上架储位'" :prop="'LocationCode'">
@@ -393,7 +393,7 @@
                 <span>名称</span>
               </el-col>
               <el-col :span="2">
-                <span>数量</span>
+                <span>重量(g)</span>
               </el-col>
               <el-col :span="4">
                 <span>批次</span>
@@ -741,14 +741,14 @@ export default {
       if (this.Label.Quantity === '' || this.Label.Quantity === null) {
         this.$message({
           type: 'error',
-          message: '未获取到正确的标签数量，无法入库'
+          message: '未获取到正确的标签重量(g)，无法入库'
         })
         return
       }
       if (this.Label.Quantity > (this.InTaskMaterial.Quantity - this.InTaskMaterial.RealInQuantity)) {
         this.$message({
           type: 'error',
-          message: '入库数量超过应收数量!'
+          message: '入库重量(g)超过应收重量(g)!'
         })
         return
       }

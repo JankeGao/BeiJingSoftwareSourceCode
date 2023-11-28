@@ -948,7 +948,7 @@ namespace wms.Client.ViewModel
                 LabelEntity.SupplyName = labelEnity.SupplyName;
                 LabelEntity.BatchCode = labelEnity.BatchCode;
                 // 本次盘点数量
-                CheckQuantity = labelEnity.Quantity;
+                CheckQuantity = labelEnity.Quantity / 1000;
                 SelectMaterialCode = labelEnity.MaterialCode;
 
                 // 自动盘点
@@ -977,7 +977,7 @@ namespace wms.Client.ViewModel
                 //}
 
 
-                CheckQuantity = entity.Quantity;
+                CheckQuantity = entity.Quantity / 1000;
                 SelectMaterialCode = entity.MaterialCode;
                 LocationCode = entity.LocationCode;
                 SearchLocationCode = entity.LocationCode;
@@ -1278,11 +1278,11 @@ namespace wms.Client.ViewModel
                         return;
                     }
                 }
-                if (CurTratCode != SelectTrayCode)
-                {
-                    Msg.Warning("当前货柜未运行至此托盘，请启动货柜！");
-                    return;
-                }
+                //if (CurTratCode != SelectTrayCode)
+                //{
+                //    Msg.Warning("当前货柜未运行至此托盘，请启动货柜！");
+                //    return;
+                //}
                 GlobalData.IsFocus = false;
 
                 //var outLabel = StockContract.StockDtos
@@ -1297,7 +1297,7 @@ namespace wms.Client.ViewModel
                     MaterialName = SelectMaterialName,
                     CheckCode = GlobalData.GuideCode,
                     TrayCode = SelectTrayCode,
-                    CheckedQuantity = CheckQuantity
+                    CheckedQuantity = CheckQuantity * 1000
                 };
 
                 List<CheckDetail> postlist = new List<CheckDetail>();

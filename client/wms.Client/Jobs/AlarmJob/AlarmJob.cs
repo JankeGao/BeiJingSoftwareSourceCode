@@ -52,7 +52,7 @@ namespace wms.Client.Jobs.AlarmJob
         public override async Task Do(params object[] param)
         {
             Thread.Sleep(100);
-            GetWeightes();
+            //GetWeightes();
             TaskBegin();
         }
 
@@ -99,6 +99,16 @@ namespace wms.Client.Jobs.AlarmJob
                     decimal weighingQuantity = decimal.Parse(weightResult.Data.ToString());
                     weightUtils.WeighingQuantity = weighingQuantity;
                 }
+
+                // 返回当前称重实测物料重量
+                var weightResultMeasured = await baseControlService.GetWeightMeasured();
+                if (weightResultMeasured.Success)
+                {
+                    decimal weighingQuantityMeasured = decimal.Parse(weightResultMeasured.Data.ToString());
+                    weightUtils.WeighingQuantityMeasured = weighingQuantityMeasured;
+                }
+
+
             }
             catch (Exception ex)
             {

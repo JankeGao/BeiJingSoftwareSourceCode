@@ -156,7 +156,7 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column :label="'领用数量'" width="100" align="center" show-overflow-tooltip>
+        <el-table-column :label="'领用重量(g)'" width="100" align="center" show-overflow-tooltip>
           <template slot-scope="scope">
             <span>{{ scope.row.Quantity }}</span>
           </template>
@@ -304,7 +304,7 @@
                 <span>容器</span>
               </el-col>
               <el-col :span="3">
-                <span>数量</span>
+                <span>重量(g)</span>
               </el-col>
               <el-col :span="5">
                 <span>模具编码</span>
@@ -756,7 +756,7 @@ export default {
       const isTextComputer = file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
       return (isText | isTextComputer)
     },
-    // 上传文件个数超过定义的数量
+    // 上传文件个数超过定义的重量(g)
     handleExceed(files, fileList) {
       this.$message.warning(`当前限制选择 1 个文件，请删除后继续上传`)
     },

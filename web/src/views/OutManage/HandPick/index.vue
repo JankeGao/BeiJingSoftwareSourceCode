@@ -78,13 +78,13 @@
               <span>{{ scope.row.MaterialName }}</span>
             </template>
           </el-table-column>
-          <el-table-column :label="'拣选数量'" width="100" align="center">
+          <el-table-column :label="'拣选重量(g)'" width="100" align="center">
             <template slot-scope="scope">
               <span>{{ scope.row.Quantity }}</span>
             </template>
           </el-table-column>
 
-          <el-table-column min-width="120" label="已拣数量" width="100" align="center">
+          <el-table-column min-width="120" label="已拣重量(g)" width="100" align="center">
             <template slot-scope="{row}">
               <template v-if="row.edit">
                 <el-input v-model="row.RealPickedQuantity" style="width:100px" class="edit-input" size="mini" />
@@ -102,7 +102,7 @@
               <span v-else>{{ row.RealPickedQuantity }}</span>
             </template>
           </el-table-column>
-          <el-table-column :label="'复核数量'" width="100" align="center">
+          <el-table-column :label="'复核重量(g)'" width="100" align="center">
             <template slot-scope="scope">
               <span>{{ scope.row.CheckedQuantity }}</span>
             </template>
@@ -281,7 +281,7 @@ export default {
       var value = parseFloat(row.RealPickedQuantity)
       if (isNaN(value) || value === 'Nan') {
         this.$message({
-          message: '填写的已拣选数量必须为数值',
+          message: '填写的已拣选重量(g)必须为数值',
           type: 'error'
         })
         row.RealPickedQuantity = row.OriginalPickedQuantity
@@ -291,7 +291,7 @@ export default {
 
       if (value === 0) {
         this.$message({
-          message: '拣选数量不能为0',
+          message: '拣选重量(g)不能为0',
           type: 'error'
         })
         row.RealPickedQuantity = row.OriginalPickedQuantity
@@ -300,7 +300,7 @@ export default {
       }
       if (value > row.Quantity) {
         this.$message({
-          message: '拣选数量不能大于需求数量',
+          message: '拣选重量(g)不能大于需求重量(g)',
           type: 'error'
         })
         row.RealPickedQuantity = row.OriginalPickedQuantity

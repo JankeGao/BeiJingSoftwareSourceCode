@@ -245,12 +245,12 @@
               <span>{{ scope.row.MaterialName }}</span>
             </template>
           </el-table-column>
-          <el-table-column :label="'数量'" width="80" align="center">
+          <el-table-column :label="'重量(g)'" width="80" align="center">
             <template slot-scope="scope">
               <span>{{ scope.row.Quantity }}</span>
             </template>
           </el-table-column>
-          <el-table-column :label="'盘点数量'" width="180" align="center">
+          <el-table-column :label="'盘点重量(g)'" width="180" align="center">
             <template slot-scope="{row}">
               <template v-if="row.edit">
                 <el-input v-model="row.CheckedQuantity" style="width:80px" class="edit-input" size="mini" />
@@ -339,10 +339,10 @@
         <el-form-item :label="'批次'">
           <el-input v-model="CheckDetail.BatchCode" clearable class="dialog-input" />
         </el-form-item>
-        <el-form-item :label="'数量'" prop="Quantity">
+        <el-form-item :label="'重量(g)'" prop="Quantity">
           <el-input v-model="CheckDetail.Quantity" clearable class="dialog-input" />
         </el-form-item>
-        <el-form-item :label="'盘点数量'" prop="CheckedQuantity">
+        <el-form-item :label="'盘点重量(g)'" prop="CheckedQuantity">
           <el-input v-model="CheckDetail.CheckedQuantity" clearable class="dialog-input" />
         </el-form-item>
         <el-form-item :label="'库位码'" prop="LocationCode">
@@ -858,7 +858,7 @@ export default {
       var value = parseFloat(row.CheckedQuantity)
       if (isNaN(value) || value === 'Nan') {
         this.$message({
-          message: '盘点数量必须为数值',
+          message: '盘点重量(g)必须为数值',
           type: 'error'
         })
         row.CheckedQuantity = row.OriginalCheckedQuantity
@@ -956,7 +956,7 @@ export default {
       if (this.CheckDetail.Quantity === 0 || this.CheckDetail.Quantity === '0' || this.CheckDetail.Quantity === '0.0' || this.CheckDetail.Quantity === '0.00' || this.CheckDetail.Quantity === '00' || this.CheckDetail.Quantity === '000' || this.CheckDetail.Quantity === '0000' || this.CheckDetail.Quantity === '00000') {
         this.$message({
           title: '成功',
-          message: '请输入数量',
+          message: '请输入重量(g)',
           type: 'error',
           duration: 2000
         })
@@ -965,7 +965,7 @@ export default {
       if (this.CheckDetail.CheckedQuantity === 0 || this.CheckDetail.CheckedQuantity === '0' || this.CheckDetail.CheckedQuantity === '0.0' || this.CheckDetail.CheckedQuantity === '0.00' || this.CheckDetail.CheckedQuantity === '00' || this.CheckDetail.CheckedQuantity === '000' || this.CheckDetail.CheckedQuantity === '0000' || this.CheckDetail.CheckedQuantity === '00000') {
         this.$message({
           title: '成功',
-          message: '请输入盘点数量',
+          message: '请输入盘点重量(g)',
           type: 'error',
           duration: 2000
         })
@@ -974,7 +974,7 @@ export default {
       if (!isFloat(this.CheckDetail.Quantity)) {
         this.$message({
           title: '成功',
-          message: '请输入正确格式的数量（包含两位小数的数字或者不包含小数的数字）',
+          message: '请输入正确格式的重量(g)（包含两位小数的数字或者不包含小数的数字）',
           type: 'error',
           duration: 2000
         })
@@ -983,7 +983,7 @@ export default {
       if (!isFloat(this.CheckDetail.CheckedQuantity)) {
         this.$message({
           title: '成功',
-          message: '请输入正确格式的盘点数量（包含两位小数的数字或者不包含小数的数字）',
+          message: '请输入正确格式的盘点重量(g)（包含两位小数的数字或者不包含小数的数字）',
           type: 'error',
           duration: 2000
         })

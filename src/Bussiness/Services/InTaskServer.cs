@@ -1355,7 +1355,7 @@ namespace Bussiness.Services
                 {
                     return DataProcess.Failure("未找到可存放库位");
                 }
-                inLocationList = inLocationList.OrderBy(a => a.AviQuantity).Take(20).ToList();
+                inLocationList = inLocationList.OrderBy(a => a.AviQuantity).Take(100).ToList();
                 return DataProcess.Success(string.Format("获取可存放库位成功"), inLocationList);
             }
             catch (Exception ex)
@@ -1458,6 +1458,7 @@ namespace Bussiness.Services
                         {
                             var avLocation = WareHouseContract.LocationVMs.FirstOrDefault(a => a.Code == locationEntity.Code);
                             avLocation.AviQuantity = available;
+                            avLocation.BoxCount = locationEntity.BoxCount;
                             // 进行人员权限的筛选
                             IdentityTicket ticket = IdentityManager.Identity;
 
@@ -1525,6 +1526,7 @@ namespace Bussiness.Services
                         {
                             var avLocation = WareHouseContract.LocationVMs.FirstOrDefault(a => a.Code == locationEntity.Code);
                             avLocation.AviQuantity = available;
+                            avLocation.BoxCount = locationEntity.BoxCount;
                             // 进行人员权限的筛选
                             IdentityTicket ticket = IdentityManager.Identity;
 

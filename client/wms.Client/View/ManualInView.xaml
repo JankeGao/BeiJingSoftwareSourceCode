@@ -299,11 +299,11 @@
                     <StackPanel Margin="0" >
                         <TextBox 
                             VerticalAlignment="Center" 
-                            materialDesign:HintAssist.Hint="输入备注"
+                            materialDesign:HintAssist.Hint="当前总重(kg)"
                             materialDesign:TextFieldAssist.TextBoxViewMargin="1 0 1 0"
                             materialDesign:HintAssist.FloatingScale="0.50"
                             Width="120"
-                            Text="{Binding Remark,Mode=TwoWay}"
+                            Text="{Binding WeighingQuantityMeasured,Mode=TwoWay}"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                             FontSize="18" />
                     </StackPanel>
@@ -427,14 +427,14 @@
                             ToolTip="托盘层数" 
                             SelectedValue="{Binding SelectTrayCode, UpdateSourceTrigger=PropertyChanged}"
                             Text="{Binding TrayCode}" 
-                            materialDesign:HintAssist.Hint="请选择存放的托盘"
+                            materialDesign:HintAssist.Hint="选择托盘"
                             Name="Name"
                             Grid.Row="1" 
                             Grid.Column="1" 
                             DisplayMemberPath="TrayCode" 
                             SelectedValuePath="TrayCode" 
                             SelectedItem ="{Binding TrayCode,Mode = TwoWay}"
-                            Width="160"
+                            Width="90"
                             Height="40"
                             Margin="10"
                             FontSize="18"
@@ -449,23 +449,23 @@
                     </StackPanel>
                     <!--<materialDesign:PackIcon Kind="CheckboxBlankOutline" Width="30" Height="30"  Margin="15"  Foreground="#673AB7"/>-->
                     <TextBlock Margin="10 22 0 0"
-                               Style="{StaticResource MaterialDesignSubtitle1TextBlock}">
-                        存储位置：
+                               Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Visibility="Visible">
+                        余料位：
                     </TextBlock>
                     <StackPanel>
                         <ComboBox
-                            ItemsSource="{Binding LocationGroups}" 
+                            ItemsSource="{Binding LocationGroupses}" 
                             SelectedValue="{Binding SelectLocationCode, UpdateSourceTrigger=PropertyChanged}"
                             Text="{Binding Code}" 
                             ToolTip="存储位置" 
-                            materialDesign:HintAssist.Hint="请选择当前存放的储位"
+                            materialDesign:HintAssist.Hint="有物料储位"
                             Name="Location"
                             Grid.Row="1" 
                             Grid.Column="1" 
                             DisplayMemberPath="Code" 
                             SelectedValuePath="Code" 
                             SelectedItem ="{Binding Code,Mode = TwoWay}"
-                            Width="200"
+                            Width="130"
                             Height="40"
                             Margin="10"
                             FontSize="18"
@@ -478,6 +478,38 @@
                             </i:Interaction.Triggers>
                         </ComboBox>
                     </StackPanel>
+
+                    <TextBlock Margin="10 22 0 0"
+                               Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Visibility="Visible">
+                        空料位：
+                    </TextBlock>
+                    <StackPanel>
+                        <ComboBox
+                            ItemsSource="{Binding LocationGroups}" 
+                            SelectedValue="{Binding SelectLocationCode, UpdateSourceTrigger=PropertyChanged}"
+                            Text="{Binding Code}" 
+                            ToolTip="存储位置" 
+                            materialDesign:HintAssist.Hint="空储位"
+                            Name="Locationes"
+                            Grid.Row="1" 
+                            Grid.Column="1" 
+                            DisplayMemberPath="Code" 
+                            SelectedValuePath="Code" 
+                            SelectedItem ="{Binding Code,Mode = TwoWay}"
+                            Width="130"
+                            Height="40"
+                            Margin="10"
+                            FontSize="18"
+                            materialDesign:HintAssist.HintOpacity=".26"
+                            IsEditable="True">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectionChanged">
+                                    <i:InvokeCommandAction Command="{Binding LocationCommand}" CommandParameter="{Binding ElementName=searchBarcode, Path=SelectedItem}"></i:InvokeCommandAction>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </ComboBox>
+                    </StackPanel>
+
                     <!--<TextBlock Margin="20 22 0 0"
                                Style="{StaticResource MaterialDesignSubtitle1TextBlock}">
                         剩余存放：
@@ -538,7 +570,7 @@
                     <materialDesign:PackIcon Kind="Numeric1BoxMultipleOutline" Width="30" Height="30"  Margin="15"  Foreground="Red"/>
                     <StackPanel Margin="0" >
                         <TextBox
-                            materialDesign:HintAssist.Hint="输入入库数量"
+                            materialDesign:HintAssist.Hint="存入重量(kg)"
                             materialDesign:TextFieldAssist.TextBoxViewMargin="1 0 1 0"
                             materialDesign:HintAssist.FloatingScale="0.50"
                             Foreground="Red"
@@ -549,17 +581,17 @@
                     </StackPanel>
                     <TextBlock Margin="20 22 0 0"
                                Style="{StaticResource MaterialDesignSubtitle1TextBlock}">
-                        剩余存放：
+                        剩余存放(kg)：
                     </TextBlock>
-                    <TextBlock Margin="10 22 10 0"
+                    <TextBlock Margin="0 22 10 0"
                                Text="{Binding AviQuantity}"
                                Style="{StaticResource MaterialDesignSubtitle1TextBlock}">
                     </TextBlock>
                     <TextBlock Margin="20 22 0 0"
                                Style="{StaticResource MaterialDesignSubtitle1TextBlock}">
-                        当前存放：
+                        当前存放(kg)：
                     </TextBlock>
-                    <TextBlock Margin="10 22 10 0"
+                    <TextBlock Margin="0 22 10 0"
                                Text="{Binding CurQuantity}"
                                Style="{StaticResource MaterialDesignSubtitle1TextBlock}">
                     </TextBlock>
@@ -573,7 +605,7 @@
                                Foreground="Red"
                                Style="{StaticResource MaterialDesignSubtitle1TextBlock}">
                     </TextBlock>
-                    <TextBlock Margin="10 22 10 0"
+                    <TextBlock Margin="10 25 10 0"
                                Text="存在多个可存放的料盒，可在储位处下拉切换"
                                Foreground="Red"
                                Visibility="{Binding IsMoreThanTwo}">
@@ -687,6 +719,19 @@
                         FontSize="14"
                         ToolTip="Resource name: MaterialDesignRaisedButton" 
                         IsDefault="true" 
+                        Background="{Binding M4132StepColor}"
+                        IsEnabled="{Binding IsCancel}"
+                        Command="{Binding PostM4132StartCommand}" Visibility="Collapsed">
+
+                        ② 开始称重
+                    </Button>
+                    <Button
+                        Style="{StaticResource MaterialDesignRaisedLightButton}"
+                        Height="80"
+                        Margin="5"
+                        FontSize="14"
+                        ToolTip="Resource name: MaterialDesignRaisedButton" 
+                        IsDefault="true" 
                         Background="{Binding SecondStepColor}"
                         IsEnabled="{Binding IsCancel}"
                         Command="{Binding HandShelfCommand}"
@@ -746,7 +791,7 @@
                                         <Button Margin="5 0 0 0" Style="{StaticResource MaterialDesignRaisedLightButton}" ToolTip="启动货柜" 
                                                 CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, 
                         AncestorType=DataGrid}, Path=SelectedItem}"  
-                                                Command="{Binding DataContext.PrintItemCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}" >
+                                                Command="{Binding DataContext.PrintItemCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}" Visibility="Collapsed">
                                             打印条码
                                         </Button>
                                     </StackPanel>
@@ -757,7 +802,7 @@
                         <DataGridTextColumn Binding="{Binding SuggestTrayCode}" Header="上架托盘"/>
                         <DataGridTextColumn Binding="{Binding LocationCode}" Header="上架储位"/>
                         <DataGridTextColumn Binding="{Binding MaterialName}" Header="物料名称" />
-                        <DataGridTextColumn Binding="{Binding Quantity}" Header="上架数量" />
+                        <DataGridTextColumn Binding="{Binding Quantity}" Header="上架重量(g)" />
                         <DataGridTextColumn Binding="{Binding MaterialCode}" Header="物料编码"/>
                         <DataGridTextColumn Binding="{Binding BatchCode}" Header="批次"/>
                         <DataGridTextColumn Binding="{Binding ShelfTime}" Header="上架时间" />

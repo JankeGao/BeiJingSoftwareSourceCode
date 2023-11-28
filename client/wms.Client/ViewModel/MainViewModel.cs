@@ -21,6 +21,11 @@ namespace wms.Client.ViewModel
     /// </summary>
     public class MainViewModel : ViewModelBase
     {
+
+
+        private bool isManualInDlgOpen = false;
+        private bool isManualOutDlgOpen = false;
+
         //public GlobalData GlobalData;
         public MainViewModel()
         {
@@ -165,6 +170,32 @@ namespace wms.Client.ViewModel
         {
             try
             {
+
+                if (module.Name == "手动入库")
+                {
+                    if (isManualOutDlgOpen)
+                    {
+                        Msg.Warning("手动出库界面已被打开，请先关闭!");
+                        return;
+                    }
+
+                    // 打开手动入库界面的逻辑...
+                    // ...
+                    isManualInDlgOpen = true;
+                }
+                else if (module.Name == "手动出库")
+                {
+                    if (isManualInDlgOpen)
+                    {
+                        Msg.Warning("手动入库界面已被打开，请先关闭!");
+                        return;
+                    }
+
+                    // 打开手动出库界面的逻辑...
+                    // ...
+                    isManualOutDlgOpen = true;
+                }
+
                 var page = GlobalData.OpenPageCollection.FirstOrDefault(t => t.HeaderName.Equals(module.Name));
                 if (page != null) { GlobalData.CurrentPage = page; return; }
                 if (string.IsNullOrWhiteSpace(module.Code))
@@ -204,6 +235,7 @@ namespace wms.Client.ViewModel
         {
             try
             {
+
                 var tab = GlobalData.OpenPageCollection.FirstOrDefault(t => t.HeaderName.Equals(module.HeaderName));
                 if (tab.HeaderName != "系统状态") GlobalData.OpenPageCollection.Remove(tab);
             }
@@ -218,6 +250,14 @@ namespace wms.Client.ViewModel
             switch (behaviorType)
             {
                 case MenuBehaviorType.ExitCurrentPage:
+                    if (pageName == "手动入库")
+                    {
+                        isManualInDlgOpen = false;
+                    }
+                    else if (pageName == "手动出库")
+                    {
+                        isManualOutDlgOpen = false;
+                    }
                     var page = GlobalData.OpenPageCollection.FirstOrDefault(t => t.HeaderName.Equals(pageName));
                     if (page.HeaderName != "系统状态") GlobalData.OpenPageCollection.Remove(page);
                     break;

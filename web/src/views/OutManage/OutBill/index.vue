@@ -146,17 +146,17 @@
             <span>{{ scope.row.MaterialName }}</span>
           </template>
         </el-table-column>
-        <el-table-column :label="'数量'" align="center">
+        <el-table-column :label="'重量(g)'" align="center">
           <template slot-scope="scope">
             <span>{{ scope.row.Quantity }}</span>
           </template>
         </el-table-column>
-        <el-table-column :label="'已下发数量'" width="150" align="center">
+        <el-table-column :label="'已下发重量(g)'" width="150" align="center">
           <template slot-scope="scope">
             <span>{{ scope.row.SendInQuantity }}</span>
           </template>
         </el-table-column>
-        <el-table-column :label="'已拣选数量'" width="150" align="center">
+        <el-table-column :label="'已拣选重量(g)'" width="150" align="center">
           <template slot-scope="scope">
             <span>{{ scope.row.PickedQuantity }}</span>
           </template>
@@ -280,7 +280,7 @@
             <span>{{ scope.row.AvailableStock }}</span>
           </template>
         </el-table-column>
-        <el-table-column :label="'数量'" width="200" align="center">
+        <el-table-column :label="'重量(g)'" width="200" align="center">
           <template slot-scope="scope">
             <el-input v-if="scope.row.Status==0" v-model="scope.row.Quantity" clearable />
             <span v-else>{{ scope.row.Quantity }}</span>
@@ -317,7 +317,7 @@
                   <span>{{ scope.row.MaterialName }}</span>
                 </template>
               </el-table-column>
-              <el-table-column :label="'数量'" width="80" align="center">
+              <el-table-column :label="'重量(g)'" width="80" align="center">
                 <template slot-scope="scope">
                   <span>{{ scope.row.Quantity }}</span>
                 </template>
@@ -358,18 +358,18 @@
                   <span>{{ scope.row.MaterialLabel }}</span>
                 </template>
               </el-table-column>
-              <el-table-column :label="'数量'" width="80" align="center">
+              <el-table-column :label="'重量(g)'" width="80" align="center">
                 <template slot-scope="scope">
                   <span>{{ scope.row.Quantity }}</span>
                 </template>
               </el-table-column>
-              <el-table-column :label="'拣选数量'" width="120" align="center">
+              <el-table-column :label="'拣选重量(g)'" width="120" align="center">
                 <template slot-scope="scope">
                   <el-input v-if="scope.row.Checked==false" v-model="scope.row.PickedQuantity" style="width:80px" class="edit-input" size="mini" />
                   <span v-else>{{ scope.row.PickedQuantity }}</span>
                 </template>
               </el-table-column>
-              <el-table-column :label="'锁定数量'" width="80" align="center">
+              <el-table-column :label="'锁定重量(g)'" width="80" align="center">
                 <template slot-scope="scope">
                   <span>{{ scope.row.LockedQuantity }}</span>
                 </template>
@@ -444,14 +444,14 @@
                   </el-tooltip>
                 </template>
               </el-table-column>
-              <el-table-column :label="'应拣数量'" width="90" align="center">
+              <el-table-column :label="'应拣重量(g)'" width="90" align="center">
                 <template slot-scope="scope">
                   <el-tooltip class="item" effect="dark" :content="scope.row.MaterialCode " placement="top">
                     <span>{{ scope.row.Quantity }}</span>
                   </el-tooltip>
                 </template>
               </el-table-column>
-              <el-table-column :label="'拣选数量'" width="90" align="center">
+              <el-table-column :label="'拣选重量(g)'" width="90" align="center">
                 <template slot-scope="scope">
                   <span>{{ scope.row.RealPickedQuantity }}</span>
                 </template>
@@ -496,12 +496,12 @@
                   <span>{{ scope.row.MaterialLabel }}</span>
                 </template>
               </el-table-column>
-              <el-table-column :label="'应拣数量'" width="90" align="center">
+              <el-table-column :label="'应拣重量(g)'" width="90" align="center">
                 <template slot-scope="scope">
                   <span>{{ scope.row.Quantity }}</span>
                 </template>
               </el-table-column>
-              <el-table-column :label="'拣选数量'" width="90" align="center">
+              <el-table-column :label="'拣选重量(g)'" width="90" align="center">
                 <template slot-scope="scope">
                   <span>{{ scope.row.RealPickedQuantity }}</span>
                 </template>
@@ -533,7 +533,7 @@
         <div style="font-size:14px;">
           <div style="margin:20px">
             <span>
-              条码数量:
+              条码重量(g):
             </span>
             <span>{{ Label.Quantity }}</span>
           </div>
@@ -1317,7 +1317,7 @@ export default {
           const quantity = parseFloat(row.PickedQuantity)
           if (isNaN(quantity) || quantity === 'Nan' || quantity === 0) {
             this.$message({
-              message: '拣选数量必须为数值或者不为0',
+              message: '拣选重量(g)必须为数值或者不为0',
               type: 'error',
               duration: 2000
             })
@@ -1328,7 +1328,7 @@ export default {
           const needQuantity = this.currentPickMaterial.Quantity - this.currentPickMaterial.PickedQuantity
           if (quantity > needQuantity) {
             this.$message({
-              message: '拣选数量必须为小于需求数量',
+              message: '拣选重量(g)必须为小于需求重量(g)',
               type: 'error',
               duration: 2000
             })
@@ -1338,7 +1338,7 @@ export default {
           }
           if (row.Quantity - row.LockedQuantity - quantity < 0) {
             this.$message({
-              message: '拣选数量应小于可用库存数量',
+              message: '拣选重量(g)应小于可用库存重量(g)',
               type: 'error',
               duration: 2000
             })
@@ -1350,7 +1350,7 @@ export default {
           this.checkedStockArray.push(row)
         } else {
           this.$message({
-            message: '请输入拣选数量',
+            message: '请输入拣选重量(g)',
             type: 'error',
             duration: 2000
           })
@@ -1440,7 +1440,7 @@ export default {
         const quantity = parseFloat(row.CheckedQuantity)
         if (isNaN(quantity) || quantity === 'Nan' || quantity === 0) {
           this.$message({
-            message: '复核数量必须为数值或者不为0',
+            message: '复核重量(g)必须为数值或者不为0',
             type: 'error',
             duration: 2000
           })
@@ -1449,7 +1449,7 @@ export default {
 
         if (quantity > row.RealPickedQuantity) {
           this.$message({
-            message: '复核数量必须为小于或等于拣选数量',
+            message: '复核重量(g)必须为小于或等于拣选重量(g)',
             type: 'error',
             duration: 2000
           })
@@ -1457,7 +1457,7 @@ export default {
         }
       } else {
         this.$message({
-          message: '请确认复核数量',
+          message: '请确认复核重量(g)',
           type: 'error',
           duration: 2000
         })
@@ -1491,7 +1491,7 @@ export default {
       const isTextComputer = file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
       return (isText | isTextComputer)
     },
-    // 上传文件个数超过定义的数量
+    // 上传文件个数超过定义的重量(g)
     handleExceed(files, fileList) {
       this.$message.warning(`当前限制选择 1 个文件，请删除后继续上传`)
     },
@@ -1576,7 +1576,7 @@ export default {
       }
     },
     createLabelData() {
-      // 整合出库物料行项目，将相同物料编码数量合并成一个行项目
+      // 整合出库物料行项目，将相同物料编码重量(g)合并成一个行项目
       this.Out.AddMaterial = []
       // 初始状态，必须要填写，否则无法进行一步下架操作
       this.Out.Status = 0
@@ -1659,7 +1659,7 @@ export default {
       if (item.Quantity === 0) {
         this.$message({
           title: '成功',
-          message: '请输入数量',
+          message: '请输入重量(g)',
           type: 'error',
           duration: 2000
         })
