@@ -25,6 +25,13 @@ namespace wms.Client.Model.RequestModel
         public override string route { get => DeviceIP + "GetM4131"; }
     }
     /// <summary>
+    /// M4131状态置OFF
+    /// </summary>
+    public class PostM4131Request : BaseRequest
+    {
+        public override string route { get => DeviceIP + "PostM4131"; }
+    }
+    /// <summary>
     /// 开始称重M4132置为ON
     /// </summary>
     public class PostM4132Request : BaseRequest

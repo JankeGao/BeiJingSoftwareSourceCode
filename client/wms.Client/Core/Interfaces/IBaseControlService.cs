@@ -26,6 +26,13 @@ namespace wms.Client.Core.Interfaces
         /// </summary>
         /// <returns></returns>
         Task<DataResult> GetM4131();
+
+        /// <summary>
+        /// M4131状态置OFF
+        /// </summary>
+        /// <returns></returns>
+        Task<DataResult> PostM4131();
+
         /// <summary>
         /// 开始称重M4132置为ON
         /// </summary>

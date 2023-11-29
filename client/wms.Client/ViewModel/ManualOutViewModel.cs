@@ -1675,7 +1675,28 @@ namespace wms.Client.ViewModel
                 await Task.Delay(100);
             }
         }
+        /// <summary>
+        /// M4131状态置OFF
+        /// </summary>
+        public async void PostM4131Result()
+        {
+            try
+            {
+                // 读取PLC 状态信息
+                var baseControlService = ServiceProvider.Instance.Get<IBaseControlService>();
 
+                // M4131状态置OFF
+                var M4131Result = await baseControlService.PostM4131();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        /// <summary>
+        /// 获取M4131状态
+        /// </summary>
         public async void GetM4131Result()
         {
             try
@@ -2167,6 +2188,7 @@ namespace wms.Client.ViewModel
 
                 Clear();
 
+                PostM4131Result();
                 PostM4139Start();
 
             }
@@ -2273,6 +2295,7 @@ namespace wms.Client.ViewModel
                 };
                 var outTaskPost = outtaskService.PostManualOutList(outTask);
 
+
                 // 仍有未完成的任务
                 if (outTaskPost.Result.Success)
                 {
@@ -2293,6 +2316,8 @@ namespace wms.Client.ViewModel
                 {
                     Msg.Warning("手动出库执行失败:" + outTaskPost.Result.Message);
                 }
+
+
             }
             catch (Exception ex)
             {

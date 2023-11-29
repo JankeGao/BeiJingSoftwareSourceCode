@@ -776,6 +776,35 @@ namespace PLCServer
         }
 
         /// <summary>
+        /// M4131置为OFF
+        /// </summary>
+        /// <returns></returns>
+        public DataResult PostM4131()
+        {
+            try
+            {
+                if (isConnected)
+                {
+                    System.Threading.Thread.Sleep(200);
+                    var M4131Result = melsec_net.Write("M4131", false);
+                    if (!M4131Result.IsSuccess)
+                    {
+                        return DataProcess.Failure("M4131置为OFF失败" + M4131Result.Message);
+                    }
+                }
+                else
+                {
+                    return DataProcess.Failure("PLC未连接");
+                }
+            }
+            catch (Exception ex)
+            {
+                return DataProcess.Failure(ex.Message);
+            }
+            return DataProcess.Success();
+        }
+
+        /// <summary>
         /// 开始称重M4132置为ON
         /// </summary>
         /// <returns></returns>
@@ -813,6 +842,7 @@ namespace PLCServer
             {
                 if (isConnected)
                 {
+                    System.Threading.Thread.Sleep(200);
                     var M4139Result = melsec_net.Write("M4139", true);
                     if (!M4139Result.IsSuccess)
                     {

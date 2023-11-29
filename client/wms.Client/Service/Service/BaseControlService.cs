@@ -45,6 +45,17 @@ namespace wms.Client.Service.Service
         }
 
         /// <summary>
+        /// M4131状态置OFF
+        /// </summary>
+        /// <returns></returns>
+        public async Task<DataResult> PostM4131()
+        {
+            BaseServiceRequest<DataResult> baseService = new BaseServiceRequest<DataResult>();
+            var r = await baseService.GetRequest<DataResult>(new PostM4131Request(), RestSharp.Method.POST);
+            return r;
+        }
+
+        /// <summary>
         /// 开始称重M4132置为ON
         /// </summary>
         /// <returns></returns>

@@ -82,6 +82,14 @@ namespace PLCServer
         DataResult GetM4131();
 
         /// <summary>
+        /// M4131置为OFF
+        /// </summary>
+        /// <returns></returns>
+        [OperationContract]
+        [WebInvoke(Method = "POST", UriTemplate = "PostM4131", BodyStyle = WebMessageBodyStyle.Bare, RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+        DataResult PostM4131();
+
+        /// <summary>
         /// 开始称重M4132置为ON
         /// </summary>
         /// <returns></returns>

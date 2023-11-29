@@ -1794,6 +1794,23 @@ namespace wms.Client.ViewModel
             }
         }
 
+        public async void PostM4131Result()
+        {
+            try
+            {
+                // 读取PLC 状态信息
+                var baseControlService = ServiceProvider.Instance.Get<IBaseControlService>();
+
+                // M4131状态置OFF
+                var M4131Result = await baseControlService.PostM4131();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         public async void GetM4131Result()
         {
             try
@@ -2380,6 +2397,8 @@ namespace wms.Client.ViewModel
                 // OffXLight();
                 Clear();
 
+
+                PostM4131Result();
                 PostM4139Start();
 
             }
@@ -2440,7 +2459,7 @@ namespace wms.Client.ViewModel
                     InTaskMaterialList= inMaterial
                 };
                 var inTaskPost = intaskService.PostManualInList(inTask);
-
+                
 
                 // 仍有未完成的任务
                 if (inTaskPost.Result.Success)
@@ -2462,6 +2481,8 @@ namespace wms.Client.ViewModel
                 {
                     Msg.Warning("手动入库执行失败:"+ inTaskPost.Result.Message);
                 }
+
+
             }
             catch (Exception ex)
             {
